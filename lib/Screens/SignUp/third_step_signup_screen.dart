@@ -55,12 +55,12 @@ class _ThirdStepSignUpScreenState extends State<ThirdStepSignUpScreen> {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
   static const platform = const MethodChannel("intergration");
 
-  void _callFawryAPI() {
-    _openPayment() ;
+  void _callFawryAPI(String subCost) {
+    _openPayment(subCost) ;
   }
 
-  void _openPayment() async {
-    String result= await platform.invokeMethod("payment",{'cost': '200'});
+  void _openPayment(String subCost) async {
+    String result= await platform.invokeMethod("payment",{'cost': subCost});
     print("status ya developer:"+result);
     Navigator.pushAndRemoveUntil(
         context,
@@ -302,7 +302,7 @@ class _ThirdStepSignUpScreenState extends State<ThirdStepSignUpScreen> {
                                                 .translate(
                                                 'auth_response_success'),
                                             Colors.green);
-                                        _callFawryAPI();
+                                        _callFawryAPI(loginResponse.data.subscriptionCost);
                                         // Navigator.pushAndRemoveUntil(
                                         //     context,
                                         //     MaterialPageRoute(

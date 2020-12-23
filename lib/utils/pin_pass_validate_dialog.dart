@@ -33,6 +33,7 @@ Future<void> pinPassValidateDialog(context) async {
           ),
           TextField(
             controller: passwordKeyController,
+            obscureText: true,
             decoration: InputDecoration(
               labelStyle: TextStyle(color: Colors.black38),
               hintStyle: TextStyle(color: Colors.black38),
@@ -48,24 +49,26 @@ Future<void> pinPassValidateDialog(context) async {
       ),
       buttons: [
         DialogButton(
-          onPressed: () {
+          onPressed: () async{
             print(Globals.userData.pin.toString() +
                 Globals.userData.password.toString());
             if (pinKeyController.text.isNotEmpty &&
                 passwordKeyController.text.isNotEmpty) {
               if (pinKeyController.text == Globals.userData.pin &&
                   passwordKeyController.text == Globals.userData.password) {
-                Navigator.push(
+                var result = await Navigator.push(
                     context,
                     new MaterialPageRoute(
                         builder: (context) => new ChangeQuestionScreen(
                             Globals.userData.question.toString(),
                             Globals.userData.answer.toString())));
+                if (result == null) Navigator.pop(context);
+
               } else {
-                showToast("invalid data", Colors.red);
+                showToast(AppLocalizations.of(context).translate('invalid_data'), Colors.red);
               }
             } else {
-              showToast("fill both fields", Colors.red);
+              showToast(AppLocalizations.of(context).translate('fill_both_fields'), Colors.red);
             }
 //            if (searchKeyController.text.isNotEmpty) {
 //              var result = await Navigator.push(

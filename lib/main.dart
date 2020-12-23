@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:himaka/Screens/language_screen.dart';
-import 'package:himaka/Screens/start_screen.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Screens/forget_password_screen.dart';
@@ -23,6 +24,17 @@ class _SignInScreenState extends State<SignInScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  static const platform = const MethodChannel("intergration");
+
+  void _callFawryAPI(String subCost) {
+    _openPayment(subCost) ;
+  }
+
+  void _openPayment(String subCost) async {
+    String result= await platform.invokeMethod("payment",{'cost': subCost});
+    print("status ya developer:"+result);
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,27 +206,36 @@ class _SignInScreenState extends State<SignInScreen> {
                                                     loginResponse.data !=
                                                         null &&
                                                     loginResponse.data.user !=
-                                                        null) {
-                                                  saveLoginData(json.encode(
-                                                      loginResponse.data.user));
-                                                  Globals.userData =
-                                                      loginResponse.data.user;
-                                                  Globals.userData.password =
-                                                      passwordController.text;
+                                                        null
+                                                    ) {
+                                                  if(loginResponse.data.user.isPaid =="1") {
+                                                    saveLoginData(json.encode(
+                                                        loginResponse.data
+                                                            .user));
+                                                    Globals.userData =
+                                                        loginResponse.data.user;
+                                                    Globals.userData.password =
+                                                        passwordController.text;
 
-                                                  showToast(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .translate(
-                                                              'auth_response_success'),
-                                                      Colors.green);
-                                                  Navigator.pushAndRemoveUntil(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              HomePage()),
-                                                      (Route<dynamic> route) =>
-                                                          false);
+                                                    showToast(
+                                                        AppLocalizations.of(
+                                                            context)
+                                                            .translate(
+                                                            'auth_response_success'),
+                                                        Colors.green);
+                                                    Navigator
+                                                        .pushAndRemoveUntil(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (
+                                                                context) =>
+                                                                HomePage()),
+                                                            (Route<
+                                                            dynamic> route) =>
+                                                        false);
+                                                  }else{
+                                                    // _callFawryAPI(loginResponse.data.subscriptionCost);
+                                                  }
                                                 } else if (!loginResponse
                                                     .status) {
                                                   showToast(

@@ -563,6 +563,9 @@ class _ProductServiceConstructScreenState
                                 ),
                                 TextFormField(
                                   controller: _descController,
+                                  maxLength: null,
+                                  maxLines: 8,
+                                  keyboardType: TextInputType.multiline,
                                   decoration: InputDecoration(
                                     errorText: model.descValidate
                                         ? null
@@ -638,10 +641,9 @@ class _ProductServiceConstructScreenState
                                         AddProductResponse response =
                                             await addProduct(model);
                                         if (response != null &&
-                                            response.data != null &&
-                                            response.data.productOrService !=
-                                                null) {
-                                          showToast("added_successfully",
+                                            response.status) {
+                                          showToast(AppLocalizations.of(context)
+                                              .translate('added_successfully'),
                                               Colors.green);
                                         } else if (response != null &&
                                             !response.status) {

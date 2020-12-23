@@ -256,7 +256,16 @@
   "did_you_forgot_pass": "هل نسيت كلمة المرور؟",
   "balance_not_enough": "حسابك غير كافي",
   "new": "جديد",
-  "used": "مستخدم"
+  "used": "مستخدم",
+  "fill_both_fields": "املآ الحقول المطلوبة",
+  "invalid_data": "البيانات غير صحيحة",
+  "check_out": "الدفع",
+  "f_address": "العنوان الاول",
+  "s_address": "العنوان الثاني",
+
+  "register_link": "رابط الاشتراك"
+
+
 
 
 

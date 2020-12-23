@@ -286,7 +286,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                                                                           model
                                                                               .productsList[index]
                                                                               .id,
-                                                                          0)));
+                                                                          1)));
 
 //                                    Navigator.pushNamed(
 //                                        context, '/products',
@@ -347,7 +347,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                                                                               .mainImage
                                                                           : "images/logo.png",
                                                                       placeholder: (context, url) => Center(
-                                                                          child: model.serviceId == 1
+                                                                          child: model.serviceId == 4
                                                                               ? CircularProgressIndicator()
                                                                               : null),
                                                                       errorWidget: (context,

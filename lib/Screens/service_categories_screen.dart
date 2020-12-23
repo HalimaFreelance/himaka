@@ -193,8 +193,9 @@ class _ServiceCategoriesScreenState extends State<ServiceCategoriesScreen> {
                                                                           Container(
                                                                         color: Colors
                                                                             .grey,
-                                                                        child: model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image !=
-                                                                                null
+                                                                        child: (model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image !=
+                                                                                null&&model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image.path !=
+                                                                            null)
                                                                             ? Image.network(
                                                                                 model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image.path,
                                                                                 fit: BoxFit.contain,

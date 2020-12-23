@@ -29,10 +29,12 @@ class LoginResponse {
 
 class LoginDataResponse {
   LoginUserResponse user;
+  String subscriptionCost;
 
-  LoginDataResponse({this.user});
+  LoginDataResponse({this.user, this.subscriptionCost});
 
   LoginDataResponse.fromJson(Map<String, dynamic> json) {
+    subscriptionCost = json['subscription_cost'];
     user = json['user'] != null
         ? new LoginUserResponse.fromJson(json['user'])
         : null;
@@ -46,6 +48,7 @@ class LoginUserResponse {
       last_name,
       password,
       email,
+      isPaid,
       commission_acount,
       profit_acount,
       cachback_caccount,
@@ -53,6 +56,7 @@ class LoginUserResponse {
       personal_acount,
       token,
       address,
+      cardImage,
       currency,
       withdraw_field_description,
       withdraw_field_value,
@@ -60,6 +64,7 @@ class LoginUserResponse {
       pin,
       mobile,
       question,
+  registerLink,
       answer;
   WithdrawMethod withdrawMethod;
   var withdraw_way_id;
@@ -82,9 +87,12 @@ class LoginUserResponse {
       this.withdraw_field_value,
       this.national_id,
       this.pin,
+      this.isPaid,
+      this.cardImage,
       this.withdrawMethod,
       this.address,
       this.mobile,
+        this.registerLink,
       this.question,
       this.answer});
 
@@ -104,11 +112,14 @@ class LoginUserResponse {
       withdraw_field_value: json['withdraw_field_value'],
       national_id: json['national_id'],
       pin: json['pin'],
+      isPaid: json['is_paid'],
+      cardImage: json['card_image'],
       email: json['email'],
       mobile: json['mobile'],
       address: json['address'],
       question: json['question'],
       answer: json['answer'],
+        registerLink:json['register_link'],
       withdrawMethod: json['withdraw_method'] != null
           ? new WithdrawMethod.fromJson(json['withdraw_method'])
           : null,
@@ -130,12 +141,15 @@ class LoginUserResponse {
         'withdraw_field_value': withdraw_field_value,
         'national_id': national_id,
         'pin': pin,
+        'card_image': cardImage,
         'mobile': mobile,
         'email': email,
         'question': question,
         'address': address,
+        'is_paid': isPaid,
         'answer': answer,
-        'withdraw_method':
+    "register_link":registerLink,
+    'withdraw_method':
             withdrawMethod != null ? withdrawMethod.toJson() : null
       };
 
@@ -145,8 +159,9 @@ class LoginUserResponse {
     data['password'] = this.password;
     return data;
   }
-  Map<String, dynamic> preRegisterPage1ToMap(String lang, String confirmPass,
-      String mobile_code, String code) {
+
+  Map<String, dynamic> preRegisterPage1ToMap(
+      String lang, String confirmPass, String mobile_code, String code) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['lang'] = lang;
     data['email'] = this.email;
@@ -161,6 +176,7 @@ class LoginUserResponse {
 
     return data;
   }
+
   Map<String, dynamic> preRegisterPage2ToMap(String lang) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['lang'] = lang;
@@ -170,6 +186,7 @@ class LoginUserResponse {
 
     return data;
   }
+
   Map<String, dynamic> preRegisterPage3ToMap(String lang, String subscription) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['lang'] = lang;

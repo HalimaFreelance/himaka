@@ -16,6 +16,8 @@ import 'package:himaka/utils/caching.dart';
 import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/show_toast.dart';
 
+import '../../Models/ProfileResponse.dart';
+import '../../ViewModels/profile_view_model.dart';
 import '../home.dart';
 
 class FourthStepSignUpScreen extends StatefulWidget {
@@ -36,7 +38,7 @@ class _FourthStepSignUpScreenState extends State<FourthStepSignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<AuthViewModel>(
+    return BaseView<ProfileViewModel>(
         onModelReady: (model) {
           refreshScreen(model);
         },
@@ -217,7 +219,7 @@ class _FourthStepSignUpScreenState extends State<FourthStepSignUpScreen> {
                                 SizedBox(
                                   height: 30,
                                 ),
-                                model.state == ViewState.Busy
+                                (model.state == ViewState.Busy && model.serviceId==2)
                                     ? CircularProgressIndicator(
                                         backgroundColor: Colors.lightBlue,
                                       )
@@ -230,110 +232,45 @@ class _FourthStepSignUpScreenState extends State<FourthStepSignUpScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                           ),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-//                                          if (model.forthSignUpValidation(
-//                                              val,
+                                          onPressed: () async {
+                                            if (model.forthSignUpValidation(
+                                                val,
+                                                _methodController.text,
+                                                _descController.text)) {
+                                              ProfileResponse _response =
+                                                  await model
+                                                      .changeWithdrawMethods(
+                                                          val.id.toString(),
+                                                          _methodController
+                                                              .text,
+                                                          _descController.text);
 
-//                                              _methodController.text.trim(),
-//                                              _descController.text)) {
-//                                            LoginResponse loginResponse =
-//                                                // await model.register(
-//                                                //     locator<AppLanguage>()
-//                                                //         .appLocal
-//                                                //         .languageCode,
-//                                                //     widget.cPass,
-//                                                //     widget.mcode,
-//                                                //     widget.code,
-//                                                //     widget.methodSubs,
-//                                                //     widget.firstName,
-//                                                //     widget.lastName,
-//                                                //     widget.email,
-//                                                //     widget.password,
-//                                                //     widget.mobile,
-//                                                //     widget.nationalId,
-//                                                //     widget.pin,
-//                                                //     widget.ques,
-//                                                //     widget.answer,
-//                                                //     val.id.toString(),
-//                                                //     _methodController.text
-//                                                //         .trim(),
-//                                                //     _descController.text
-//                                                //         .trim());
-//                                                await model.register(
-//                                                    locator<AppLanguage>()
-//                                                        .appLocal
-//                                                        .languageCode,
-//                                                    widget.cPass,
-//                                                    widget.mcode,
-//                                                    widget.code,
-//                                                    widget.methodSubs,
-//                                                    widget.firstName,
-//                                                    widget.lastName,
-//                                                    widget.email,
-//                                                    widget.password,
-//                                                    widget.mobile,
-//                                                    widget.nationalId,
-//                                                    widget.pin,
-//                                                    widget.ques,
-//                                                    widget.answer);
-//                                            if (loginResponse == null) {
-//                                              final snackBar = SnackBar(
-//                                                content: Text(
-//                                                    AppLocalizations.of(context)
-//                                                        .translate(
-//                                                            'check_network')),
-//                                                backgroundColor: Colors.red,
-//                                              );
-//                                              _scaffoldKey.currentState
-//                                                  .showSnackBar(snackBar);
-//                                            } else if (loginResponse.status &&
-//                                                loginResponse.data != null &&
-//                                                loginResponse.data.user !=
-//                                                    null) {
-//                                              saveLoginData(json.encode(
-//                                                  loginResponse.data.user));
-//                                              Globals.userData =
-//                                                  loginResponse.data.user;
-//                                              showToast(
-//                                                  AppLocalizations.of(context)
-//                                                      .translate(
-//                                                          'auth_response_success'),
-//                                                  Colors.green);
-//                                              Navigator.pushAndRemoveUntil(
-//                                                  context,
-//                                                  MaterialPageRoute(
-//                                                      builder: (context) =>
-//                                                          HomePage()),
-//                                                  (Route<dynamic> route) =>
-//                                                      false);
-//                                            } else if (!loginResponse.status) {
-//                                              if (loginResponse.errors !=
-//                                                      null &&
-//                                                  loginResponse.errors.length >
-//                                                      0) {
-//                                                showToast(
-//                                                    model.getRegisterErrors(
-//                                                        loginResponse.errors),
-//                                                    Colors.red);
-//                                              } else
-//                                                showToast(
-//                                                    AppLocalizations.of(context)
-//                                                        .translate(
-//                                                            'something_went_error'),
-//                                                    Colors.red);
-//                                            } else {
-//                                              final snackBar = SnackBar(
-//                                                content: Text(
-//                                                    AppLocalizations.of(context)
-//                                                        .translate(
-//                                                            'check_network')),
-//                                                backgroundColor: Colors.red,
-//                                              );
-//                                              _scaffoldKey.currentState
-//                                                  .showSnackBar(snackBar);
-//                                            }
-//                                          }
+                                              if (_response == null) {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'check_network')),
+                                                  backgroundColor: Colors.red,
+                                                );
+                                                _scaffoldKey.currentState
+                                                    .showSnackBar(snackBar);
+                                              } else if (_response.status) {
+                                                Navigator.of(context).pop();
+                                              } else {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'check_network')),
+                                                  backgroundColor: Colors.red,
+                                                );
+                                                _scaffoldKey.currentState
+                                                    .showSnackBar(snackBar);
+                                              }
+                                            }
                                           },
                                           padding: EdgeInsets.all(20),
                                           color: Colors.lightBlueAccent,
@@ -395,13 +332,16 @@ class _FourthStepSignUpScreenState extends State<FourthStepSignUpScreen> {
         AppLocalizations.of(context).translate('change_withdraw'),
         style: TextStyle(color: Colors.black),
       ),
+      iconTheme: IconThemeData(
+        color: Colors.grey[900], //change your color here
+      ),
       centerTitle: true,
       backgroundColor: Colors.transparent,
       elevation: 0.0,
     );
   }
 
-  void refreshScreen(AuthViewModel model) {
+  void refreshScreen(ProfileViewModel model) {
     model.preRegister(locator<AppLanguage>().appLocal.languageCode);
   }
 }

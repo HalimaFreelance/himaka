@@ -60,6 +60,9 @@ class Category {
     id = json['id'];
     slug = json['slug'];
     name = json['name'];
+    image = json['logo'] != null
+        ? new Image.fromJson(json['logo'])
+        : null;
     if (json['sub_categories'] != null) {
       subCategory = new List<Category>();
       json['sub_categories'].forEach((v) {

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 import 'login_response.dart';
 
 ProfileResponse profileResponseFromJson(String str) =>
@@ -32,6 +34,21 @@ class ProfileResponse {
         "data": data.toJson(),
       };
 }
+class ChangeImageCardReq {
+  String lang;
+  String token;
+
+
+  ChangeImageCardReq(this.lang, this.token);
+
+  Map<String, dynamic> changeCardToMap(image) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['lang'] = lang;
+    data['token'] = token;
+    data['card_image'] = image;
+    return data;
+  }
+}
 
 class Data {
   Data({
@@ -41,7 +58,9 @@ class Data {
   LoginUserResponse user;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        user: json['user']!=null?LoginUserResponse.fromJson(json['user']):null,
+        user: json['user'] != null
+            ? LoginUserResponse.fromJson(json['user'])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -71,6 +90,7 @@ class User {
     this.cachbackCaccount,
     this.cadeauAcount,
     this.personalAcount,
+    this.cardImage,
     this.withdrawFieldValue,
     this.withdrawFieldDescription,
     this.withdrawWayId,
@@ -91,6 +111,7 @@ class User {
   String address;
   dynamic question;
   dynamic answer;
+  String cardImage;
   String commissionAcount;
   String profitAcount;
   String cachbackCaccount;
@@ -100,19 +121,21 @@ class User {
   dynamic withdrawFieldDescription;
   String withdrawWayId;
 
-
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         email: json["email"],
         token: json["token"],
-        permissions: json["permissions"]!=null?List<dynamic>.from(json["permissions"].map((x) => x)):null,
+        permissions: json["permissions"] != null
+            ? List<dynamic>.from(json["permissions"].map((x) => x))
+            : null,
         lastLogin: DateTime.parse(json["last_login"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         nationalId: json["national_id"],
         pin: json["pin"],
+        cardImage: json['card_image'],
         mobile: json["mobile"],
         address: json["address"],
         question: json["question"],
@@ -139,6 +162,7 @@ class User {
         "updated_at": updatedAt.toIso8601String(),
         "national_id": nationalId,
         "pin": pin,
+        "card_image": cardImage,
         "mobile": mobile,
         "address": address,
         "question": question,

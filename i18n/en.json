@@ -264,7 +264,13 @@
   "sent": "Sent",
   "balance_not_enough": "Your balance not enough",
   "new": "New",
-  "used": "Used"
+  "used": "Used",
+  "fill_both_fields": "fill both fields",
+  "invalid_data": "Invalid data",
+  "check_out": "Check out",
+  "f_address": "Address1",
+  "s_address": "Address2",
+  "register_link": "Register link"
 
 
 

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:himaka/Models/product_service_details_response.dart';
+
 AddReviewResponse addReviewResponseFromJson(String str) =>
     AddReviewResponse.fromJson(json.decode(str));
 
@@ -47,58 +49,3 @@ class Data {
       };
 }
 
-class Review {
-  Review({
-    this.reviewerId,
-    this.productId,
-    this.rating,
-    this.comment,
-    this.reviewerName,
-    this.isApproved,
-    this.updatedAt,
-    this.createdAt,
-    this.id,
-    this.ratingPercent,
-    this.createdAtFormatted,
-  });
-
-  int reviewerId;
-  var productId;
-  String rating;
-  String comment;
-  String reviewerName;
-  bool isApproved;
-  DateTime updatedAt;
-  DateTime createdAt;
-  int id;
-  int ratingPercent;
-  String createdAtFormatted;
-
-  factory Review.fromJson(Map<String, dynamic> json) => Review(
-        reviewerId: json["reviewer_id"],
-        productId: json["product_id"],
-        rating: json["rating"],
-        comment: json["comment"],
-        reviewerName: json["reviewer_name"],
-        isApproved: json["is_approved"],
-        updatedAt: DateTime.parse(json["updated_at"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        id: json["id"],
-        ratingPercent: json["rating_percent"],
-        createdAtFormatted: json["created_at_formatted"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "reviewer_id": reviewerId,
-        "product_id": productId,
-        "rating": rating,
-        "comment": comment,
-        "reviewer_name": reviewerName,
-        "is_approved": isApproved,
-        "updated_at": updatedAt.toIso8601String(),
-        "created_at": createdAt.toIso8601String(),
-        "id": id,
-        "rating_percent": ratingPercent,
-        "created_at_formatted": createdAtFormatted,
-      };
-}

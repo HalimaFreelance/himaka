@@ -188,7 +188,7 @@ class _ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
                                                                             model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].name != null
                                                                                 ? model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].name
                                                                                 : "sub category name",
-                                                                            2,
+                                                                            1,
                                                                             catId: model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].id)));
                                                               },
                                                               child: GridTile(
@@ -200,8 +200,9 @@ class _ProductCategoriesScreenState extends State<ProductCategoriesScreen> {
                                                                           Container(
                                                                         color: Colors
                                                                             .grey,
-                                                                        child: model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image !=
-                                                                                null
+                                                                        child: (model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image !=
+                                                                            null&&model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image.path !=
+                                                                            null)
                                                                             ? Image.network(
                                                                                 model.getCategoriesResponse.data.mainCategories[selectedCategory].subCategory[index].image.path,
                                                                                 fit: BoxFit.contain,

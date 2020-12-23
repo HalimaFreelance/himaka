@@ -30,7 +30,8 @@ class MainActivity : FlutterActivity(), FawrySdkCallback {
 //            item.sku = "1"
             items.add(item)
             FawryPluginAppClass.enableLogging = false
-            val serverUrl = "https://atfawry.fawrystaging.com"
+           val serverUrl = "https://atfawry.fawrystaging.com"
+//           val serverUrl = "https://atfawry.com"
 //           val merchantID = "1tSa6uxz2nR8NtecAqS5fQ=="
            val merchantID = "1tSa6uxz2nQvR6pbttqFMg=="
 //            FawryPluginAppClass.skipCustomerInput = true
@@ -69,5 +70,6 @@ class MainActivity : FlutterActivity(), FawrySdkCallback {
 
     override fun paymentOperationFailure(s: String?, o: Any?) {
         Log.i("1", s + o.toString())
+        paymentResult.error(s)
     }
 }

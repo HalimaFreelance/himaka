@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/cart.dart';
 import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/Screens/cart_item.dart';
+import 'package:himaka/Screens/check_out_screen.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/caching.dart';
 import 'package:himaka/utils/show_toast.dart';
@@ -166,10 +167,10 @@ class _CartScreenState extends State<CartScreen> {
                                                 TextStyle(color: Colors.white),
                                           ),
                                           onPressed: () {
-                                            showToast(
-                                                AppLocalizations.of(context)
-                                                    .translate('in_progress'),
-                                                Colors.red);
+                                            Navigator.push(
+                                                context,
+                                                new MaterialPageRoute(
+                                                    builder: (context) => new CheckOutScreen()));
                                           },
                                           color: Colors.lightBlueAccent,
                                           shape: RoundedRectangleBorder(

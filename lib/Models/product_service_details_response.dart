@@ -40,8 +40,8 @@ class Data {
   Item item;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        item: Item.fromJson(json["item"]),
-        deliveryInfo: DeliveryInfo.fromJson(json["delivery_info"]),
+        item: json["item"]!=null?Item.fromJson(json["item"]):null,
+        deliveryInfo: json["delivery_info"]!=null?DeliveryInfo.fromJson(json["delivery_info"]):null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -416,7 +416,7 @@ class Review {
   });
 
   int id;
-  String reviewerId;
+  var reviewerId;
   String productId;
   String rating;
   String reviewerName;

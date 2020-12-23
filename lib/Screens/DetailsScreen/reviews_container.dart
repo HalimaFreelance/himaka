@@ -29,10 +29,6 @@ class _ReviewsContainerState extends State<ReviewsContainer> {
     return BaseView<AddReviewViewModel>(
         builder: (context, model, child) => LayoutBuilder(builder:
                 (BuildContext context, BoxConstraints viewportConstraints) {
-              if (model.addReviewResponse != null &&
-                  model.addReviewResponse.data != null) {
-                showToast("sent_successfully", Colors.green);
-              }
               return Column(
                 children: [
                   Expanded(
@@ -162,6 +158,12 @@ class _ReviewsContainerState extends State<ReviewsContainer> {
                                 showToast(
                                     model.addReviewResponse.errors.toString(),
                                     Colors.red);
+                              }else if (model.addReviewResponse != null &&
+                                  model.addReviewResponse.data != null) {
+                                widget.reviews.add(model.addReviewResponse.data.review);
+                                showToast(
+                                    AppLocalizations.of(context).translate('sent_successfully'),
+                                    Colors.green);
                               }
                             } else {
                               showToast(

@@ -1,9 +1,12 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:himaka/Models/ProfileResponse.dart';
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Screens/change_password_screen.dart';
-import 'package:himaka/Screens/change_question_screen.dart';
 import 'package:himaka/Screens/start_screen.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/profile_view_model.dart';
@@ -12,9 +15,11 @@ import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/caching.dart';
+import 'package:himaka/utils/camera_gallery_alert.dart';
 import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/pin_pass_validate_dialog.dart';
 import 'package:himaka/utils/show_toast.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'SignUp/fourth_step_signup_screen.dart';
 
@@ -29,12 +34,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _emailController,
       _phoneController,
       _nationalIdController,
+  _registerLinkController,
       _secNameController;
   bool _enabled = false;
 
   TextEditingController _oldPassController = new TextEditingController();
   TextEditingController _newPasswordController = new TextEditingController();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String _retrieveDataError;
+  File _imageFile;
+  dynamic _pickImageError;
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +78,96 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ? SingleChildScrollView(
                           child: Column(
                             children: [
-                              SvgPicture.asset(
-                                'images/icon_profile.svg',
-                                height: 130.0,
-                                width: 130.0,
-                                allowDrawingOutsideViewBox: true,
-                              ),
+                              (model.state == ViewState.Busy &&
+                                      model.serviceId == 4)
+                                  ? Container(
+                                      width: 150,
+                                      height: 150,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.lightBlue,
+                                        ),
+                                      ),
+                                    )
+                                  : (Globals.userData!=null&&Globals.userData
+                                                  .cardImage !=
+                                              null &&
+                                  Globals.userData
+                                      .cardImage.isNotEmpty)
+                                      ? InkWell(
+                                          onTap: () async {
+                                            cameraLibraryDialog(context)
+                                                .then((value) async {
+                                              if (value != null &&
+                                                  value == "1") {
+                                                _onImageButtonPressed(
+                                                    ImageSource.camera, model,
+                                                    context: context);
+                                              } else if (value != null &&
+                                                  value == "2") {
+                                                _onImageButtonPressed(
+                                                    ImageSource.gallery, model,
+                                                    context: context);
+                                              }
+                                            });
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Container(
+                                              width: 150,
+                                              height: 150,
+                                              // decoration: BoxDecoration(
+                                              //   shape: BoxShape.circle,
+                                              //   image: DecorationImage(
+                                              //       image: NetworkImage(model
+                                              //           .profileResponse
+                                              //           .data
+                                              //           .user
+                                              //           .cardImage),
+                                              //       fit: BoxFit.fill),
+                                              // ),
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit
+                                                    .fill,
+                                                imageUrl:Globals.userData
+                                                    .cardImage,
+                                                placeholder: (context, url) => Center(
+                                                    child: model.serviceId == 1
+                                                        ? CircularProgressIndicator()
+                                                        : null),
+                                                errorWidget: (context,
+                                                    url,
+                                                    error) =>
+                                                new Icon(
+                                                    Icons.error),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : InkWell(
+                                          onTap: () async {
+                                            cameraLibraryDialog(context)
+                                                .then((value) async {
+                                              if (value != null &&
+                                                  value == "1") {
+                                                _onImageButtonPressed(
+                                                    ImageSource.camera, model,
+                                                    context: context);
+                                              } else if (value != null &&
+                                                  value == "2") {
+                                                _onImageButtonPressed(
+                                                    ImageSource.gallery, model,
+                                                    context: context);
+                                              }
+                                            });
+                                          },
+                                          child: SvgPicture.asset(
+                                            'images/icon_profile.svg',
+                                            height: 130.0,
+                                            width: 130.0,
+                                            allowDrawingOutsideViewBox: true,
+                                          ),
+                                        ),
                               Text(
                                 model.profileResponse.data.user.first_name +
                                     " " +
@@ -278,36 +371,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                               TextField(
                                                 controller:
-                                                    _nationalIdController,
+                                                _nationalIdController,
                                                 keyboardType:
-                                                    TextInputType.number,
+                                                TextInputType.number,
                                                 enabled: false,
                                                 decoration: new InputDecoration(
                                                   labelText: AppLocalizations
-                                                          .of(context)
+                                                      .of(context)
                                                       .translate('national_id'),
                                                   labelStyle: TextStyle(
                                                       color: Colors.black),
                                                   prefixIcon: Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            15.0),
+                                                    const EdgeInsets.all(
+                                                        15.0),
                                                     child: SvgPicture.asset(
                                                       'images/icon_nationalid.svg',
                                                       height: 5.0,
                                                       width: 5.0,
                                                       color: Colors.black,
                                                       allowDrawingOutsideViewBox:
-                                                          true,
+                                                      true,
                                                     ),
                                                   ),
                                                   enabledBorder:
-                                                      UnderlineInputBorder(
+                                                  UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.black),
                                                   ),
                                                   focusedBorder:
-                                                      UnderlineInputBorder(
+                                                  UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black),
+                                                  ),
+                                                ),
+                                              ),
+                                              TextField(
+                                                controller:
+                                                _registerLinkController,
+                                                enabled: false,
+                                                decoration: new InputDecoration(
+                                                  labelText: AppLocalizations
+                                                      .of(context)
+                                                      .translate('register_link'),
+                                                  labelStyle: TextStyle(
+                                                      color: Colors.black),
+                                                  enabledBorder:
+                                                  UnderlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black),
+                                                  ),
+                                                  focusedBorder:
+                                                  UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.black),
                                                   ),
@@ -597,6 +712,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         text: mobile,
       );
     });
+    _registerLinkController = TextEditingController(
+        text: model.profileResponse.data.user.registerLink);
 
 //    _descController = model
 //            .loginResponse.homeResult.customerInfo.centerDescription.isNotEmpty
@@ -609,6 +726,84 @@ class _ProfileScreenState extends State<ProfileScreen> {
 //        text: mobile,
 //      );
 //    });
+  }
+
+  void _onImageButtonPressed(ImageSource source, ProfileViewModel model,
+      {BuildContext context}) async {
+    {
+      try {
+        ImagePicker _picker = ImagePicker();
+        PickedFile pickedFile = await _picker.getImage(
+          maxHeight: 1024,
+          maxWidth: 1024,
+          source: source,
+          imageQuality: 50,
+        );
+        if (pickedFile != null) {
+          _imageFile = File(pickedFile.path);
+          ProfileResponse _response = await model.changeProfileImage(
+              locator<AppLanguage>().appLocal.languageCode, _imageFile);
+          if (_response == null) {
+            final snackBar = SnackBar(
+              content:
+                  Text(AppLocalizations.of(context).translate('check_network')),
+              backgroundColor: Colors.red,
+            );
+            _scaffoldKey.currentState.showSnackBar(snackBar);
+          } else if (_response.status) {
+            showToast(
+                AppLocalizations.of(context).translate('sent_successfully'),
+                Colors.green);
+          } else {
+            final snackBar = SnackBar(
+              content:
+                  Text(AppLocalizations.of(context).translate('check_network')),
+              backgroundColor: Colors.red,
+            );
+            _scaffoldKey.currentState.showSnackBar(snackBar);
+          }
+        }
+      } catch (e) {
+        _pickImageError = e;
+        showToast(AppLocalizations.of(context).translate('something_wrong'),
+            Colors.green);
+      }
+    }
+  }
+
+  Future<void> retrieveLostData(ProfileViewModel model) async {
+    ImagePicker _picker = ImagePicker();
+    final LostData response = await _picker.getLostData();
+    if (response.isEmpty) {
+      return;
+    }
+    if (response.file != null) {
+      _imageFile = File(response.file.path);
+      ProfileResponse _response = await model.changeProfileImage(
+          locator<AppLanguage>().appLocal.languageCode, _imageFile);
+      if (_response == null) {
+        final snackBar = SnackBar(
+          content:
+              Text(AppLocalizations.of(context).translate('check_network')),
+          backgroundColor: Colors.red,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+      } else if (_response.status) {
+        showToast(AppLocalizations.of(context).translate('sent_successfully'),
+            Colors.green);
+      } else {
+        final snackBar = SnackBar(
+          content:
+              Text(AppLocalizations.of(context).translate('check_network')),
+          backgroundColor: Colors.red,
+        );
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+      }
+    } else {
+      _retrieveDataError = response.exception.code;
+      showToast(AppLocalizations.of(context).translate('something_wrong'),
+          Colors.green);
+    }
   }
 
   void refreshScreen(ProfileViewModel model) {

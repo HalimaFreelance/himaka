@@ -8,6 +8,9 @@ import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/utils/app_localizations.dart';
 
+import '../Models/ProfileResponse.dart';
+import '../ViewModels/profile_view_model.dart';
+
 class ChangeQuestionScreen extends StatefulWidget {
   String question, answer;
 
@@ -21,7 +24,6 @@ class ChangeQuestionScreen extends StatefulWidget {
 }
 
 class _ChangeQuestionScreenState extends State<ChangeQuestionScreen> {
-//  final TextEditingController _pinController = new TextEditingController();
   final TextEditingController _answerController = new TextEditingController();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -30,6 +32,7 @@ class _ChangeQuestionScreenState extends State<ChangeQuestionScreen> {
   String confirmedNumber = '';
   List<String> users = <String>[
     'In what city did your parents meet?',
+    'what is your mom name?'
     'What is your favorite color?',
     'What is your current job?',
     'What is your favorite team?',
@@ -42,12 +45,13 @@ class _ChangeQuestionScreenState extends State<ChangeQuestionScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    val=widget.question;
     _answerController.text = widget.answer;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<AuthViewModel>(
+    return BaseView<ProfileViewModel>(
         builder: (context, model, child) => LayoutBuilder(builder:
                 (BuildContext context, BoxConstraints viewportConstraints) {
               return new Scaffold(
@@ -213,101 +217,39 @@ class _ChangeQuestionScreenState extends State<ChangeQuestionScreen> {
                                               BorderRadius.circular(10),
                                         ),
                                         onPressed: () async {
-//                                              if (model.secondSignUpValidation(
-//                                                  _pinController.text.trim(),
-//                                                  val,
-//                                                  _answerController.text
-//                                                      .trim())) {
-//                                                LoginResponse loginResponse =
-//                                                    await model
-//                                                        .validateRegisterPage2(
-//                                                            locator<AppLanguage>()
-//                                                                .appLocal
-//                                                                .languageCode,
-//                                                            _pinController.text,
-//                                                            val,
-//                                                            _answerController
-//                                                                .text
-//                                                                .trim());
-//                                                if (loginResponse == null) {
-//                                                  final snackBar = SnackBar(
-//                                                    content: Text(
-//                                                        AppLocalizations.of(
-//                                                                context)
-//                                                            .translate(
-//                                                                'check_network')),
-//                                                    backgroundColor: Colors.red,
-//                                                  );
-//                                                  _scaffoldKey.currentState
-//                                                      .showSnackBar(snackBar);
-//                                                } else if (loginResponse
-//                                                    .status) {
-//                                                  Navigator.push(
-//                                                      context,
-//                                                      new MaterialPageRoute(
-//                                                          builder: (context) =>
-//                                                              new ThirdStepSignUpScreen(
-//                                                                firstName: widget
-//                                                                    .firstName,
-//                                                                lastName: widget
-//                                                                    .lastName,
-//                                                                email: widget
-//                                                                    .email,
-//                                                                password: widget
-//                                                                    .password,
-//                                                                cPass: widget
-//                                                                    .cPass,
-//                                                                mobile: widget
-//                                                                    .mobile,
-//                                                                mcode: widget
-//                                                                    .mcode,
-//                                                                code:
-//                                                                    widget.code,
-//                                                                pin:
-//                                                                    _pinController
-//                                                                        .text,
-//                                                                ques: val,
-//                                                                answer:
-//                                                                    _answerController
-//                                                                        .text
-//                                                                        .trim(),
-//                                                                data:
-//                                                                    widget.data,
-//                                                                nationalId: widget
-//                                                                    .nationalId,
-//                                                              )));
-//                                                } else if (!loginResponse
-//                                                    .status) {
-//                                                  if (loginResponse.errors !=
-//                                                          null &&
-//                                                      loginResponse
-//                                                              .errors.length >
-//                                                          0) {
-//                                                    showToast(
-//                                                        model.getRegisterErrors(
-//                                                            loginResponse
-//                                                                .errors),
-//                                                        Colors.red);
-//                                                  } else
-//                                                    showToast(
-//                                                        AppLocalizations.of(
-//                                                                context)
-//                                                            .translate(
-//                                                                'something_went_error'),
-//                                                        Colors.red);
-//                                                } else {
-//                                                  final snackBar = SnackBar(
-//                                                    content: Text(
-//                                                        AppLocalizations.of(
-//                                                                context)
-//                                                            .translate(
-//                                                                'check_network')),
-//                                                    backgroundColor: Colors.red,
-//                                                  );
-//                                                  _scaffoldKey.currentState
-//                                                      .showSnackBar(snackBar);
-//                                                }
-//                                              }
+                                          if (model.quesAnswerValidation(val,
+                                              _answerController.text.trim())) {
+                                            ProfileResponse _response =
+                                                await model
+                                                    .changeProfileQuestion(
+                                                        val,
+                                                        _answerController.text
+                                                            .trim());
+
+                                            if (_response == null) {
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                            'check_network')),
+                                                backgroundColor: Colors.red,
+                                              );
+                                              _scaffoldKey.currentState
+                                                  .showSnackBar(snackBar);
+                                            } else if (_response.status) {
+                                              Navigator.of(context).pop();
+                                            } else {
+                                              final snackBar = SnackBar(
+                                                content: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                            'check_network')),
+                                                backgroundColor: Colors.red,
+                                              );
+                                              _scaffoldKey.currentState
+                                                  .showSnackBar(snackBar);
+                                            }
+                                          }
 ////
                                         },
                                         padding: EdgeInsets.all(20),
@@ -360,8 +302,14 @@ class _ChangeQuestionScreenState extends State<ChangeQuestionScreen> {
 
   Widget _buildBar(BuildContext context) {
     return new AppBar(
-      title: new Text("Sign up"),
+      title: new Text(
+        AppLocalizations.of(context).translate('change_question'),
+        style: TextStyle(color: Colors.black),
+      ),
       centerTitle: true,
+      iconTheme: IconThemeData(
+        color: Colors.grey[900], //change your color here
+      ),
       backgroundColor: Colors.transparent,
       elevation: 0.0,
     );

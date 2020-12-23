@@ -68,11 +68,12 @@ class Api {
   static const addToFavURL = '/favProductOrService';
   static const bannerProductURL = '/getBannerProduct';
   static const getProductsURL = '/getProducts';
-  static const getProductsPurchasedURL = '/products-purchased'; // 2
-  static const getProductsSoldURL = '/products-saled'; // 3
+  static const getProductsPurchasedURL = '/products-purchased';
+  static const getProductsSoldURL = '/products-saled';
   static const getComplaintsURL = '/get/user-complaints';
   static const addComplaintPreURL = '/get/orders';
   static const addComplaintURL = "/complaint/store";
+  static const preStoreURL = "/store/order";
 
   var client = new http.Client();
 
@@ -368,6 +369,7 @@ class Api {
       Map body) async {
     var response = await ApiHeaders().genericPostFormDataRequest(
         path: getProductOrserviceDetailsUrl, map: body);
+
     if (response != null) {
       return ProductOrServiceDetailsResponse.fromJson(response.data);
     } else {
@@ -398,7 +400,6 @@ class Api {
   Future<SearchResponse> search(Map body) async {
     var response = await ApiHeaders()
         .genericPostFormDataRequest(path: searchURL, map: body);
-    print("responssse::" + response.toString());
     if (response != null) {
       return SearchResponse.fromJson(response.data);
     } else {
@@ -479,6 +480,15 @@ class Api {
   Future<AddComplaintPreResponse> addComplaint(Map body) async {
     var response = await ApiHeaders()
         .postFormDataRequest(path: addComplaintURL, map: body);
+    if (response != null) {
+      return AddComplaintPreResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+  Future<AddComplaintPreResponse> preStore(Map body) async {
+    var response = await ApiHeaders()
+        .postFormDataRequest(path: preStoreURL, map: body);
     if (response != null) {
       return AddComplaintPreResponse.fromJson(response.data);
     } else {
