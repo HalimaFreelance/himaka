@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:himaka/Models/product_service_details_response.dart';
+
 OrderDetailsResponse ordersResponseFromJson(String str) =>
     OrderDetailsResponse.fromJson(json.decode(str));
 
@@ -11,17 +13,23 @@ class OrderDetailsResponse {
     this.status,
     this.msg,
     this.data,
+    this.errors
   });
 
   bool status;
   String msg;
   Data data;
+  List<String> errors;
+
 
   factory OrderDetailsResponse.fromJson(Map<String, dynamic> json) =>
       OrderDetailsResponse(
         status: json["status"],
         msg: json["msg"],
-        data: Data.fromJson(json["data"]),
+        data: json["data"]!=null?Data.fromJson(json["data"]):null,
+        errors:(json["errors"] != null)
+            ? List<String>.from(json["errors"].map((x) => x))
+            : []
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,6 +37,80 @@ class OrderDetailsResponse {
         "msg": msg,
         "data": data.toJson(),
       };
+}
+class StoreOrderReq {
+  String lang;
+  String token;
+  String email;
+  String phone;
+  String fName;
+  String lName;
+  String address;
+  String city;
+  String zip;
+  String country;
+  String bState;
+  String shippingMethod;
+  String paymentMethod;
+  String currency="EG";
+  var transId;
+  int shipToDifferentAddress=0;
+  int terms=1;
+
+
+  StoreOrderReq(
+      this.lang,
+      this.token,
+      this.email,
+      this.phone,
+      this.fName,
+      this.lName,
+      this.address,
+      this.city,
+      this.zip,
+      this.country,
+      this.bState,
+      this.shippingMethod,
+      this.paymentMethod,
+      this.transId);
+
+  Map<String, dynamic> storeOrderToMap(List<Item> items) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    // data['lang'] = lang;
+    data['token'] = token;
+    data['customer_email'] = email;
+    data['customer_phone'] = phone;
+    data['billing_first_name'] = fName;
+    data['billing_last_name'] = lName;
+    data['billing_address_1'] = address;
+    data['billing_city'] = city;
+    data['billing_zip'] = zip;
+    data['billing_country'] = country;
+    data['billing_state'] = bState;
+    data['shipping_method'] = shippingMethod;
+    data['payment_method'] = paymentMethod;
+    data['ship_to_different_address'] = shipToDifferentAddress;
+    data['terms_and_conditions'] = terms;
+    data['currency'] = currency;
+    data['transaction_id'] = transId;
+
+    List<int> products = new List<int>();
+    List<int> quantity = new List<int>();
+    List<String> price = new List<String>();
+
+
+    for(int i=0; i<items.length;i++){
+      products.add(items[i].id);
+      quantity.add(items[i].count);
+      price.add(items[i].newPrice.toString());
+    }
+    data['products'] = products.toString();
+    data['price'] = price.toString();
+    data['quantity'] = quantity.toString();
+    data['price_after_commision'] = price.toString();
+
+    return data;
+  }
 }
 
 class Data {
@@ -87,7 +169,7 @@ class Order {
   });
 
   int id;
-  String customerId;
+  var customerId;
   String customerEmail;
   dynamic customerPhone;
   String customerFirstName;
@@ -116,7 +198,7 @@ class Order {
   Discount total;
   String paymentMethod;
   String currency;
-  String currencyRate;
+  var currencyRate;
   String locale;
   String status;
   dynamic note;
@@ -213,7 +295,7 @@ class Discount {
     this.inCurrentCurrency,
   });
 
-  String amount;
+  var amount;
   String formatted;
   String currency;
   InCurrentCurrency inCurrentCurrency;

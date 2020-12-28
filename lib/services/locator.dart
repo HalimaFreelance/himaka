@@ -3,6 +3,7 @@ import 'package:himaka/ViewModels/add_product_or_service_view_model.dart';
 import 'package:himaka/ViewModels/add_review_view_model.dart';
 import 'package:himaka/ViewModels/auth_view_model.dart';
 import 'package:himaka/ViewModels/banner_products_view_model.dart';
+import 'package:himaka/ViewModels/check_out_view_model.dart';
 import 'package:himaka/ViewModels/complaints_history_view_model.dart';
 import 'package:himaka/ViewModels/customer_support_view_model.dart';
 import 'package:himaka/ViewModels/filter_view_model.dart';
@@ -45,4 +46,6 @@ void setupLocator() {
   locator.registerFactory(() => WalletViewModel());
   locator.registerFactory(() => BannerProductsViewModel());
   locator.registerFactory(() => ComplaintsHistoryViewModel());
+  locator.registerFactory(() => CheckOutViewModel());
+
 }

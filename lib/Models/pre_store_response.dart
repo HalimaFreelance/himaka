@@ -1,45 +1,98 @@
-class PrStoreResponse{
+class PreStoreResponse {
   String msg;
-  String errors;
+  List<String> errors;
   bool status;
   PreStoreData data;
 
-  PrStoreResponse({this.msg, this.status, this.data});
+  PreStoreResponse({this.msg, this.status, this.data});
 
-  PrStoreResponse.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null
-        ? new PreStoreData.fromJson(json['data'])
-        : null;
+  PreStoreResponse.fromJson(Map<String, dynamic> json) {
+    data =
+        json['data'] != null ? new PreStoreData.fromJson(json['data']) : null;
     status = json['status'];
-    errors = json['errors'];
+    if (json['errors'] != null) {
+      errors = new List<String>();
+      json['errors'].forEach((v) {
+        errors.add(v);
+      });
+    }
     msg = json['msg'];
   }
 }
-class PreStoreData{
-  List<Country> countries;
+
+class PreStoreData {
+  List<BillingCountry> countries;
+  List<PaymentWays> paymentMethods;
+  List<ShippingMethods> shippingMethods;
+  bool canPurchase;
+
   PreStoreData.fromJson(Map<String, dynamic> json) {
+    canPurchase = json['canPurchasing'];
+
     if (json['countries'] != null) {
-      countries = new List<Country>();
+      countries = new List<BillingCountry>();
       json['countries'].forEach((v) {
-        countries.add(new Country.fromJson(v));
+        countries.add(new BillingCountry.fromJson(v));
+      });
+    }
+    if (json['payment_methods'] != null) {
+      paymentMethods = new List<PaymentWays>();
+      json['payment_methods'].forEach((v) {
+        paymentMethods.add(new PaymentWays.fromJson(v));
+      });
+    }
+    if (json['shipping_methods'] != null) {
+      shippingMethods = new List<ShippingMethods>();
+      json['shipping_methods'].forEach((v) {
+        shippingMethods.add(new ShippingMethods.fromJson(v));
       });
     }
   }
-
 }
-class Country{
+
+class BillingCountry {
   String id;
   String name;
-  Country.fromJson(Map<String, dynamic> json) {
+  List<BillingState> states;
+
+  BillingCountry.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    if (json['states'] != null) {
+      states = new List<BillingState>();
+      json['states'].forEach((v) {
+        states.add(new BillingState.fromJson(v));
+      });
+    }
+  }
+}
+
+class BillingState {
+  String id;
+  String name;
+
+  BillingState.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }
 }
-class State{
+
+class PaymentWays {
   String id;
   String name;
-  State.fromJson(Map<String, dynamic> json) {
+
+  PaymentWays.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    name = json['name'];
+  }
+}
+
+class ShippingMethods {
+  String name;
+  var cost;
+
+  ShippingMethods.fromJson(Map<String, dynamic> json) {
+    cost = json['cost'];
     name = json['name'];
   }
 }

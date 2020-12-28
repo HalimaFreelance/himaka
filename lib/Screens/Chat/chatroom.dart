@@ -4,9 +4,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
+import 'package:himaka/Models/change_price_response.dart';
 import 'package:himaka/Screens/Chat/pickImageController.dart';
 import 'package:himaka/Screens/Chat/utils.dart';
 import 'package:himaka/Screens/order_details.dart';
+import 'package:himaka/services/api.dart';
+import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/show_toast.dart';
@@ -17,11 +20,18 @@ import 'fullphoto.dart';
 import 'notificationController.dart';
 
 class ChatRoom extends StatefulWidget {
-  ChatRoom(this.myID, this.myName, this.selectedUserID,
-      this.serviceProviderUserId, this.chatID, this.selectedUserName);
+  ChatRoom(
+      this.myID,
+      this.myName,
+      this.selectedUserID,
+      this.serviceProviderUserId,
+      this.chatID,
+      this.selectedUserName,
+      this.itemId);
 
   String myID, serviceProviderUserId;
   String myName;
+  int itemId;
 //  String selectedUserToken;
   String selectedUserID;
   String chatID;
@@ -660,8 +670,39 @@ class _ChatRoomState extends State<ChatRoom> {
             color: Colors.grey,
           ),
           DialogButton(
-            onPressed: () {
+            onPressed: () async {
               if (valueKeyController.text.isNotEmpty) {
+                ChangePriceResponse changePriceResponse = await changePrice(
+                    widget.itemId, int.parse(valueKeyController.text));
+
+                //TODO data is once [] and once {}
+//                showToast(changePriceResponse.msg, Colors.black);
+                if (changePriceResponse == null) {
+                  showToast(
+                      AppLocalizations.of(context).translate('check_network'),
+                      Colors.red);
+                  Navigator.pop(context);
+                } else if (changePriceResponse.status &&
+                    changePriceResponse.data != null) {
+                  showToast('changed', Colors.green);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                } else if (!changePriceResponse.status) {
+                  showToast(
+                      AppLocalizations.of(context)
+                          .translate('auth_response_error'),
+                      Colors.red);
+                  Navigator.pop(context);
+                } else if (changePriceResponse.data == null) {
+                  showToast('BACKEND => data : []', Colors.red);
+                  Navigator.pop(context);
+                } else {
+                  showToast(
+                      AppLocalizations.of(context).translate('check_network'),
+                      Colors.red);
+                  Navigator.pop(context);
+                }
+//
                 //close dialog and change the value on user
                 setState(() {
                   messageType = 'text';
@@ -739,5 +780,17 @@ class _ChatRoomState extends State<ChatRoom> {
             content: Text(msg),
           );
         });
+  }
+
+  Api _api = locator<Api>();
+
+  Future changePrice(int itemId, int newPrice) async {
+    Map<String, dynamic> data = {
+      "token": Globals.userData.token,
+      'item_id': itemId,
+      'new_price': newPrice
+    };
+    ChangePriceResponse changePriceResponse = await _api.changePrice(data);
+    return changePriceResponse;
   }
 }

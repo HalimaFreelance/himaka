@@ -10,9 +10,10 @@ import 'package:himaka/Screens/Chat/utils.dart';
 import 'firebaseController.dart';
 
 class ChatList extends StatefulWidget {
-  ChatList(this.myID, this.serviceProviderUserId, this.myName);
+  ChatList(this.myID, this.serviceProviderUserId, this.myName, this.itemID);
 
   String myID, serviceProviderUserId;
+  int itemID;
   String myName;
 
   @override
@@ -153,7 +154,8 @@ class _ChatListState extends State<ChatList> {
                   selectedUserID,
                   widget.serviceProviderUserId,
                   chatID,
-                  selectedUserName)));
+                  selectedUserName,
+                  widget.itemID)));
     } catch (e) {
       print(e.message);
     }

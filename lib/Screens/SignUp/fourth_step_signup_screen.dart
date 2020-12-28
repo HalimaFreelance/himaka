@@ -1,24 +1,16 @@
-import 'dart:convert';
 import 'dart:core';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Models/pre_register_response.dart';
-import 'package:himaka/ViewModels/auth_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
-import 'package:himaka/utils/caching.dart';
-import 'package:himaka/utils/globals.dart';
-import 'package:himaka/utils/show_toast.dart';
 
 import '../../Models/ProfileResponse.dart';
 import '../../ViewModels/profile_view_model.dart';
-import '../home.dart';
 
 class FourthStepSignUpScreen extends StatefulWidget {
   @override

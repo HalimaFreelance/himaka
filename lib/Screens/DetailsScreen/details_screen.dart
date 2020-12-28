@@ -523,13 +523,25 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                       widget.type == 2
                                                           ? InkWell(
                                                               onTap: () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) => ChatList(
-                                                                            Globals.userData.id.toString(),
-                                                                            model.productOrServiceDetailsResponse.data.item.userId,
-                                                                            model.productOrServiceDetailsResponse.data.item.userName)));
+                                                                model
+                                                                        .productOrServiceDetailsResponse
+                                                                        .data
+                                                                        .canPurchasing
+                                                                    ? Navigator
+                                                                        .push(
+                                                                            context,
+                                                                            MaterialPageRoute(
+                                                                                builder: (context) =>
+                                                                                    ChatList(
+                                                                                      Globals.userData.id.toString(),
+                                                                                      model.productOrServiceDetailsResponse.data.item.userId,
+                                                                                      model.productOrServiceDetailsResponse.data.item.userName,
+                                                                                      model.productOrServiceDetailsResponse.data.item.id,
+                                                                                    )))
+                                                                    : showToast(
+                                                                        'your points isnt enough to open chat',
+                                                                        Colors
+                                                                            .red);
                                                               },
                                                               child: SvgPicture
                                                                   .asset(

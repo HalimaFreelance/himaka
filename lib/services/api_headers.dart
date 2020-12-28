@@ -78,14 +78,14 @@ class ApiHeaders {
         base64Encode(utf8.encode('himakaFlutter:NjtzfEriTFd7eMe6GuU9nrvi'));
     try {
       Dio dio = Dio();
-      // dio.interceptors.add(PrettyDioLogger(
-      //     requestHeader: true,
-      //     requestBody: true,
-      //     responseBody: true,
-      //     responseHeader: false,
-      //     error: true,
-      //     compact: true,
-      //     maxWidth: 90));
+      dio.interceptors.add(PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90));
       Response response = await dio.post('$endpoint$userEndpoint$path',
           data: FormData.fromMap(map),
           options: Options(

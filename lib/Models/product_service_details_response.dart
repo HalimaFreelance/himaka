@@ -34,19 +34,22 @@ class ProductOrServiceDetailsResponse {
 }
 
 class Data {
-  Data({this.item, this.deliveryInfo});
+  Data({this.item, this.deliveryInfo, this.canPurchasing});
   DeliveryInfo deliveryInfo;
+  bool canPurchasing;
 
   Item item;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        item: json["item"]!=null?Item.fromJson(json["item"]):null,
-        deliveryInfo: json["delivery_info"]!=null?DeliveryInfo.fromJson(json["delivery_info"]):null,
+        item: Item.fromJson(json["item"]),
+        deliveryInfo: DeliveryInfo.fromJson(json["delivery_info"]),
+        canPurchasing: json["canPurchasing"],
       );
 
   Map<String, dynamic> toJson() => {
         "item": item.toJson(),
         "delivery_info": deliveryInfo.toJson(),
+        "canPurchasing": canPurchasing,
       };
 }
 
@@ -416,7 +419,7 @@ class Review {
   });
 
   int id;
-  var reviewerId;
+  String reviewerId;
   String productId;
   String rating;
   String reviewerName;

@@ -38,6 +38,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
 
   Widget imageCarousel(List images) {
     // print("hh" + images.toString());
+    // removeUserData();
     return Container(
       height: (MediaQuery.of(context).size.height / 2) - 120,
       child: Container(

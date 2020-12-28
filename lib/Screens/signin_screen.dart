@@ -234,6 +234,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                                             dynamic> route) =>
                                                         false);
                                                   }else{
+                                                    showToast(
+                                                        AppLocalizations.of(
+                                                            context)
+                                                            .translate(
+                                                            'payment_inprogress'),
+                                                        Colors.red);
                                                     // _callFawryAPI(loginResponse.data.subscriptionCost);
                                                   }
                                                 } else if (!loginResponse

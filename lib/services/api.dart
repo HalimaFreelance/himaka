@@ -4,6 +4,7 @@ import 'package:himaka/Models/ProfileResponse.dart';
 import 'package:himaka/Models/add_complaint_pre_response.dart';
 import 'package:himaka/Models/add_product_response.dart';
 import 'package:himaka/Models/add_review_response.dart';
+import 'package:himaka/Models/change_price_response.dart';
 import 'package:himaka/Models/client_user_orders.dart';
 import 'package:himaka/Models/complaints_response.dart';
 import 'package:himaka/Models/customer_support_response.dart';
@@ -15,6 +16,7 @@ import 'package:himaka/Models/orders_response.dart';
 import 'package:himaka/Models/personal_wallet_cash_out.dart';
 import 'package:himaka/Models/pre_personal_wallet_cash_out.dart';
 import 'package:himaka/Models/pre_register_response.dart';
+import 'package:himaka/Models/pre_store_response.dart';
 import 'package:himaka/Models/pre_upgrade_response.dart';
 import 'package:himaka/Models/prep_add_product_service.dart';
 import 'package:himaka/Models/prep_filter.dart';
@@ -29,8 +31,7 @@ import 'package:http/http.dart' as http;
 import 'api_headers.dart';
 
 class Api {
-  //these apis aren't implemented yet
-  // StoreOrder
+
   static const loginURL = '/login';
   static const logOutURL = '/logout';
   static const registerURL = '/register';
@@ -73,7 +74,9 @@ class Api {
   static const getComplaintsURL = '/get/user-complaints';
   static const addComplaintPreURL = '/get/orders';
   static const addComplaintURL = "/complaint/store";
-  static const preStoreURL = "/store/order";
+  static const change_price = '/products-purchased';
+  static const preStoreURL = "/pre/order";
+  static const storeURL = "/store/order";
 
   var client = new http.Client();
 
@@ -272,18 +275,19 @@ class Api {
   }
 
   Future<OrdersResponse> getOrdersApi(Map body) async {
-    var response = await ApiHeaders().postFormDataRequest(
-        path: ordersUrl,
-        map: body);
+    var response =
+        await ApiHeaders().postFormDataRequest(path: ordersUrl, map: body);
     if (response != null) {
       return OrdersResponse.fromJson(response.data);
     } else {
       return null;
     }
   }
-  Future<ClientUserOrdersResponse> getUserClientOrdersApi(Map body, int pathId) async {
+
+  Future<ClientUserOrdersResponse> getUserClientOrdersApi(
+      Map body, int pathId) async {
     var response = await ApiHeaders().genericPostFormDataRequest(
-        path:  pathId == 2 ? getProductsPurchasedURL : getProductsSoldURL,
+        path: pathId == 2 ? getProductsPurchasedURL : getProductsSoldURL,
         map: body);
     if (response != null) {
       return ClientUserOrdersResponse.fromJson(response.data);
@@ -476,6 +480,16 @@ class Api {
       return null;
     }
   }
+  Future<ChangePriceResponse> changePrice(Map body) async {
+    var response = await ApiHeaders()
+        .genericPostFormDataRequest(path: change_price, map: body);
+    if (response != null) {
+      print(ChangePriceResponse.fromJson(response.data));
+      return ChangePriceResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
 
   Future<AddComplaintPreResponse> addComplaint(Map body) async {
     var response = await ApiHeaders()
@@ -486,13 +500,24 @@ class Api {
       return null;
     }
   }
-  Future<AddComplaintPreResponse> preStore(Map body) async {
-    var response = await ApiHeaders()
-        .postFormDataRequest(path: preStoreURL, map: body);
+
+  Future<PreStoreResponse> preStore(Map body) async {
+    var response =
+        await ApiHeaders().postFormDataRequest(path: preStoreURL, map: body);
     if (response != null) {
-      return AddComplaintPreResponse.fromJson(response.data);
+      return PreStoreResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+  Future<OrderDetailsResponse> storeOrder(Map body) async {
+    var response = await ApiHeaders()
+        .postFormDataRequest(path: storeURL, map: body);
+    if (response != null) {
+      return OrderDetailsResponse.fromJson(response.data);
     } else {
       return null;
     }
   }
 }
+

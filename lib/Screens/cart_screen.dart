@@ -9,8 +9,6 @@ import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/Screens/cart_item.dart';
 import 'package:himaka/Screens/check_out_screen.dart';
 import 'package:himaka/utils/app_localizations.dart';
-import 'package:himaka/utils/caching.dart';
-import 'package:himaka/utils/show_toast.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -170,7 +168,7 @@ class _CartScreenState extends State<CartScreen> {
                                             Navigator.push(
                                                 context,
                                                 new MaterialPageRoute(
-                                                    builder: (context) => new CheckOutScreen()));
+                                                    builder: (context) => new CheckOutScreen(items)));
                                           },
                                           color: Colors.lightBlueAccent,
                                           shape: RoundedRectangleBorder(

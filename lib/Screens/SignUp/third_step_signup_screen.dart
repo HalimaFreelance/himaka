@@ -297,12 +297,19 @@ class _ThirdStepSignUpScreenState extends State<ThirdStepSignUpScreen> {
                                         //     loginResponse.data.user));
                                         // Globals.userData =
                                         //     loginResponse.data.user;
+                                        // showToast(
+                                        //     AppLocalizations.of(context)
+                                        //         .translate(
+                                        //         'auth_response_success'),
+                                        //     Colors.green);
                                         showToast(
-                                            AppLocalizations.of(context)
+                                            AppLocalizations.of(
+                                                context)
                                                 .translate(
-                                                'auth_response_success'),
-                                            Colors.green);
-                                        _callFawryAPI(loginResponse.data.subscriptionCost);
+                                                'payment_inprogress'),
+                                            Colors.red);
+                                        //TODO return payment
+                                        // _callFawryAPI(loginResponse.data.subscriptionCost);
                                         // Navigator.pushAndRemoveUntil(
                                         //     context,
                                         //     MaterialPageRoute(

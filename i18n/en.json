@@ -270,7 +270,19 @@
   "check_out": "Check out",
   "f_address": "Address1",
   "s_address": "Address2",
-  "register_link": "Register link"
+  "register_link": "Register link",
+  "payment_inprogress": "Payment inprogress",
+  "not_enough_points": "Sorry you don't have enough points in to your wallet",
+  "select_coun": "Select country",
+  "select_stat": "Select state",
+  "select_payment": "Select Payment Method",
+  "city": "City",
+  "zip": "Zip",
+  "select_ship": "Select Shipping method",
+  "i_agree": "I agree on ",
+  "and": " and ",
+  "terms_error": "You should agree to this field",
+  "opertaion_succ": "Your order has been sent successfully"
 
 
 

@@ -70,6 +70,6 @@ class MainActivity : FlutterActivity(), FawrySdkCallback {
 
     override fun paymentOperationFailure(s: String?, o: Any?) {
         Log.i("1", s + o.toString())
-        paymentResult.error(s)
+//        paymentResult.error(s)
     }
 }
