@@ -801,7 +801,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         // "free_shipping",
         paymentWays.id,
         widget.items,
-        transId: paymentWays.id == "cod" ?  transId:null);
+        transId: paymentWays.id == "cod" ? null: transId);
   }
 
   void refreshScreen(CheckOutViewModel model) {
