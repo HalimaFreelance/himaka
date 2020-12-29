@@ -6,7 +6,7 @@
   "code_error": "هذا الكود لا يخص اي مستخدم",
   "something_went_error": "هناك شىء خاطىء",
   "upgrade": "التطوير",
-  "upgrade_img_text": "This feature is when the \nnumber of people\nthat you can add has\nbeen completed and you\nwant to upgrade\nyour account in order to\nadd five more people to\nbenefit from\nthe added commission on\npeople. you can be used\n only five time.",
+  "upgrade_img_text": "هذه الميزة عندما يكون ملف\nعدد الاشخاص\nالتي يمكنك إضافتها\nاكتملت وانت\nتريد الترقية\nحسابك من أجل\nإضافة خمسة أشخاص آخرين إلى\nالاستفادة من\nالعمولة المضافة على\nاشخاص. يمكنك استخدامها\n خمس مرات فقط.",
   "your_order": "تفاصيل الطلب",
   "change_withdraw": "تغيير طريقه السحب",
   "change_question": "تغيير السؤال",
@@ -276,7 +276,10 @@
   "i_agree": "أنا اوافق علي ",
   "and": " و ",
   "terms_error": "يجب ان توافق علي هذا الحقل",
-  "opertaion_succ": "تم ارسال طلبك بنجاح"
+  "opertaion_succ": "تم ارسال طلبك بنجاح",
+  "copied": "نسخ إلى الحافظة",
+  "upgrade_now": "طور الان",
+  "select_y_quse": "اختر السؤال الخاص بك"
 
 
 }

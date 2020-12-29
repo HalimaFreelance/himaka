@@ -282,7 +282,10 @@
   "i_agree": "I agree on ",
   "and": " and ",
   "terms_error": "You should agree to this field",
-  "opertaion_succ": "Your order has been sent successfully"
+  "opertaion_succ": "Your order has been sent successfully",
+  "copied": "Copied to the clipboard",
+  "upgrade_now": "Upgrade now",
+  "select_y_quse": "Select your question"
 
 
 

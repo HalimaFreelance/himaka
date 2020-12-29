@@ -88,11 +88,13 @@ class PaymentWays {
 }
 
 class ShippingMethods {
+  String id;
   String name;
   var cost;
 
   ShippingMethods.fromJson(Map<String, dynamic> json) {
     cost = json['cost'];
     name = json['name'];
+    id = json['id'];
   }
 }

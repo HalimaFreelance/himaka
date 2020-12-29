@@ -92,8 +92,13 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                         horizontal: 16.0,
                                                         vertical: 16),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: locator<
+                                                                  AppLanguage>()
+                                                              .appLocal
+                                                              .languageCode ==
+                                                          "en"
+                                                      ? CrossAxisAlignment.start
+                                                      : CrossAxisAlignment.end,
                                                   children: [
                                                     Padding(
                                                       padding:
@@ -101,9 +106,9 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                               8.0),
                                                       child: Text(
                                                         AppLocalizations.of(
-                                                                context)
+                                                            context)
                                                             .translate(
-                                                                'upgrade'),
+                                                            'upgrade'),
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontWeight:
@@ -115,6 +120,15 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                       height: 16,
                                                     ),
                                                     Row(
+                                                      mainAxisAlignment: locator<
+                                                                      AppLanguage>()
+                                                                  .appLocal
+                                                                  .languageCode ==
+                                                              "en"
+                                                          ? MainAxisAlignment
+                                                              .start
+                                                          : MainAxisAlignment
+                                                              .end,
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
@@ -151,7 +165,7 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                             height: 8,
                                           ),
                                           Container(
-                                            height: 250,
+                                            height: 255,
                                             child: ListView.builder(
                                               itemCount: model
                                                   .preUpgradeResponse
@@ -408,7 +422,10 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                                       16.0),
                                                               child: Center(
                                                                 child: Text(
-                                                                  'Upgrade now',
+                                                                    AppLocalizations.of(
+                                                                        context)
+                                                                        .translate(
+                                                                        'upgrade_now'),
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,

@@ -33,6 +33,7 @@ class _ReviewsContainerState extends State<ReviewsContainer> {
                 children: [
                   Expanded(
                     child: ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => SizedBox(
                         height: 5,
                       ),

@@ -797,8 +797,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         zipController.text,
         country.id,
         billingState.id,
-        shippingMethods.name,
-        // "free_shipping",
+        shippingMethods.id,
         paymentWays.id,
         widget.items,
         transId: paymentWays.id == "cod" ? null: transId);

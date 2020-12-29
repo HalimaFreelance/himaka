@@ -171,7 +171,8 @@ class _SpecialOfferScreenState extends State<SpecialOfferScreen> {
                           ),
                           isExpanded: true,
                           hint: Text(
-                            Globals.userData.question,
+                              AppLocalizations.of(context)
+                                   .translate('select_y_quse'),
                             style: TextStyle(color: Colors.black),
                           ),
                           value: val,
@@ -361,7 +362,7 @@ class _SpecialOfferScreenState extends State<SpecialOfferScreen> {
   void textFormConfiguration(BuildContext context, LoginUserResponse model) {
 //    model.setWorkTimeInitialData(model.loginResponse.homeResult.centerTimeWork);
 
-    _pinController = TextEditingController(text: model.pin.toString());
+    _pinController = TextEditingController();
 
     _pinController.addListener(() {
       final name = _pinController.text;
@@ -370,7 +371,7 @@ class _SpecialOfferScreenState extends State<SpecialOfferScreen> {
       );
     });
 
-    _answerController = TextEditingController(text: model.answer);
+    _answerController = TextEditingController();
 
     _answerController.addListener(() {
       final name = _answerController.text;

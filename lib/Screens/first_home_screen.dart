@@ -10,6 +10,7 @@ import 'package:himaka/Models/cart.dart';
 import 'package:himaka/Models/home_response.dart';
 import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/Screens/add_product_service.dart';
+import 'package:himaka/Screens/start_screen.dart';
 import 'package:himaka/ViewModels/add_fav_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/filter_view_model.dart';
@@ -17,6 +18,7 @@ import 'package:himaka/ViewModels/home_view_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/caching.dart';
+import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/show_toast.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -91,6 +93,19 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
   @override
   Widget build(BuildContext context) {
 //    deleteCart();
+//     removeUserData();
+//     Globals.userData =
+//     null;
+//
+//     Navigator.pushAndRemoveUntil(
+//         context,
+//         MaterialPageRoute(
+//             builder:
+//                 (context) =>
+//                 StartScreen()),
+//             (Route<dynamic>
+//         route) =>
+//         false);
     var size = MediaQuery.of(context).size;
 
     /*24 is for notification bar on Android*/

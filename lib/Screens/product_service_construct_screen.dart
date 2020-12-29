@@ -25,6 +25,8 @@ class ProductServiceConstructScreen extends StatefulWidget {
   _ProductServiceConstructScreenState createState() =>
       _ProductServiceConstructScreenState();
 }
+enum FilterType { isNew, isUsed }
+
 
 class _ProductServiceConstructScreenState
     extends State<ProductServiceConstructScreen> {
@@ -35,6 +37,7 @@ class _ProductServiceConstructScreenState
   TextEditingController _descController = new TextEditingController();
   TextEditingController _priceController = new TextEditingController();
   TextEditingController _discountController = new TextEditingController();
+  FilterType _character = FilterType.isNew;
 
   String ress = 'Select category';
   List<int> tagsId = [];
@@ -603,6 +606,60 @@ class _ProductServiceConstructScreenState
                                         child: Container(child: Text("%")),
                                       )),
                                 ),
+                                widget.type==1?Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 8.0, left: 8.0, right: 8.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .translate('type'),
+                                      style: TextStyle(
+                                          fontSize: 15,),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ):Container(),
+                                widget.type==1?Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: ListTile(
+                                        title: Text(AppLocalizations.of(context)
+                                            .translate('new')),
+                                        leading: Radio(
+                                          activeColor: Colors.blue,
+                                          value: FilterType.isNew,
+                                          groupValue: _character,
+                                          onChanged: (FilterType value) {
+                                            setState(() {
+                                              _character = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: ListTile(
+                                        title: Text(AppLocalizations.of(context)
+                                            .translate('used')),
+                                        leading: Radio(
+                                          activeColor: Colors.blue,
+                                          value: FilterType.isUsed,
+                                          groupValue: _character,
+                                          onChanged: (FilterType value) {
+                                            setState(() {
+                                              _character = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ):Container(),
+
                               ],
                             )),
                         model.state == ViewState.Busy

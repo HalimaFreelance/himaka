@@ -23,6 +23,7 @@ class _DescriptionContainerState extends State<DescriptionContainer> {
         Expanded(
           flex: 3,
           child: ListView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               Card(
                 color: Colors.white,

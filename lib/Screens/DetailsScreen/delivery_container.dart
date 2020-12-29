@@ -19,6 +19,7 @@ class _DeliveryContainerState extends State<DeliveryContainer> {
         Expanded(
           flex: 2,
           child: ListView(
+            physics: NeverScrollableScrollPhysics(),
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),

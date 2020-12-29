@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/ProfileResponse.dart';
 import 'package:himaka/Models/login_response.dart';
@@ -34,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _emailController,
       _phoneController,
       _nationalIdController,
-  _registerLinkController,
+      _registerLinkController,
       _secNameController;
   bool _enabled = false;
 
@@ -89,11 +90,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                       ),
                                     )
-                                  : (Globals.userData!=null&&Globals.userData
-                                                  .cardImage !=
-                                              null &&
-                                  Globals.userData
-                                      .cardImage.isNotEmpty)
+                                  : (Globals.userData != null &&
+                                          Globals.userData.cardImage != null &&
+                                          Globals.userData.cardImage.isNotEmpty)
                                       ? InkWell(
                                           onTap: () async {
                                             cameraLibraryDialog(context)
@@ -112,7 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             });
                                           },
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(8.0),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                             child: Container(
                                               width: 150,
                                               height: 150,
@@ -127,19 +127,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               //       fit: BoxFit.fill),
                                               // ),
                                               child: CachedNetworkImage(
-                                                fit: BoxFit
-                                                    .fill,
-                                                imageUrl:Globals.userData
-                                                    .cardImage,
-                                                placeholder: (context, url) => Center(
-                                                    child: model.serviceId == 1
-                                                        ? CircularProgressIndicator()
-                                                        : null),
-                                                errorWidget: (context,
-                                                    url,
-                                                    error) =>
-                                                new Icon(
-                                                    Icons.error),
+                                                fit: BoxFit.fill,
+                                                imageUrl:
+                                                    Globals.userData.cardImage,
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                        child: model.serviceId ==
+                                                                1
+                                                            ? CircularProgressIndicator()
+                                                            : null),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        new Icon(Icons.error),
                                               ),
                                             ),
                                           ),
@@ -371,62 +370,101 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                               TextField(
                                                 controller:
-                                                _nationalIdController,
+                                                    _nationalIdController,
                                                 keyboardType:
-                                                TextInputType.number,
+                                                    TextInputType.number,
                                                 enabled: false,
                                                 decoration: new InputDecoration(
                                                   labelText: AppLocalizations
-                                                      .of(context)
+                                                          .of(context)
                                                       .translate('national_id'),
                                                   labelStyle: TextStyle(
                                                       color: Colors.black),
                                                   prefixIcon: Padding(
                                                     padding:
-                                                    const EdgeInsets.all(
-                                                        15.0),
+                                                        const EdgeInsets.all(
+                                                            15.0),
                                                     child: SvgPicture.asset(
                                                       'images/icon_nationalid.svg',
                                                       height: 5.0,
                                                       width: 5.0,
                                                       color: Colors.black,
                                                       allowDrawingOutsideViewBox:
-                                                      true,
+                                                          true,
                                                     ),
                                                   ),
                                                   enabledBorder:
-                                                  UnderlineInputBorder(
+                                                      UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.black),
                                                   ),
                                                   focusedBorder:
-                                                  UnderlineInputBorder(
+                                                      UnderlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Colors.black),
                                                   ),
                                                 ),
                                               ),
-                                              TextField(
-                                                controller:
-                                                _registerLinkController,
-                                                enabled: false,
-                                                decoration: new InputDecoration(
-                                                  labelText: AppLocalizations
-                                                      .of(context)
-                                                      .translate('register_link'),
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                  enabledBorder:
-                                                  UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.black),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex:4,
+                                                    child: TextField(
+                                                      controller:
+                                                          _registerLinkController,
+                                                      enabled: false,
+                                                      maxLines: null,
+                                                      decoration: new InputDecoration(
+                                                        labelText:
+                                                            AppLocalizations.of(
+                                                                    context)
+                                                                .translate(
+                                                                    'register_link'),
+                                                        labelStyle: TextStyle(
+                                                            color: Colors.black),
+                                                        enabledBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors.black),
+                                                        ),
+                                                        // suffixIcon: IconButton(
+                                                        //   onPressed: (){
+                                                        //     showToast(AppLocalizations.of(
+                                                        //         context)
+                                                        //         .translate(
+                                                        //         'copied'),Colors.green);
+                                                        //     Clipboard.setData(ClipboardData(text: _registerLinkController.text));
+                                                        //   },
+                                                        //   icon: Icon(
+                                                        //     Icons.content_copy,
+                                                        //     color: Colors.black,
+                                                        //   ),
+                                                        // ),
+                                                        focusedBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors.black),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
-                                                  focusedBorder:
-                                                  UnderlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.black),
-                                                  ),
-                                                ),
+                                                  Expanded(
+                                                    flex: 1,
+                                                    child: IconButton(
+                                                      onPressed: (){
+                                                        showToast(AppLocalizations.of(
+                                                            context)
+                                                            .translate(
+                                                            'copied'),Colors.green);
+                                                        Clipboard.setData(ClipboardData(text: _registerLinkController.text));
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.content_copy,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
                                               ),
                                               Container(
                                                   width: MediaQuery.of(context)
@@ -814,3 +852,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return model.logOut(locator<AppLanguage>().appLocal.languageCode);
   }
 }
+
