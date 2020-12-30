@@ -102,10 +102,12 @@ class Offer {
       this.shortDescription,
       this.translations,
       this.files,
+      this.isUsed,
       this.isWishlist,
       this.image});
 
   String image;
+  String isUsed;
   int id;
   String userId;
   String brandId;
@@ -155,6 +157,7 @@ class Offer {
         brandId: json["brand_id"] == null ? null : json["brand_id"],
         taxClassId: json["tax_class_id"],
         slug: json["slug"],
+        isUsed: json['is_used'],
         price: json['price'] != null ? HomePrice.fromJson(json["price"]) : null,
         specialPrice: json["special_price"] == null
             ? null
@@ -231,6 +234,7 @@ class Offer {
         "manage_stock": manageStock,
         "qty": qty,
         'image': image,
+        'is_used': isUsed,
         "in_stock": inStock,
         "viewed": viewed,
         "is_active": isActive,

@@ -99,6 +99,7 @@ class Item {
       this.shortDescription,
       this.translations,
       this.files,
+        this.isUsed,
       this.relatedProducts,
       this.pivot,
       this.count});
@@ -126,6 +127,7 @@ class Item {
   DateTime createdAt;
   DateTime updatedAt;
   String used;
+  String isUsed;
   bool isWishlist;
   var oldPrice;
   var newPrice;
@@ -157,6 +159,7 @@ class Item {
         brandId: json["brand_id"],
         taxClassId: json["tax_class_id"],
         slug: json["slug"],
+        isUsed: json['is_used'],
         price: json["price"] == null ? null : Price.fromJson(json["price"]),
         specialPrice: json["special_price"] == null
             ? null
@@ -240,6 +243,7 @@ class Item {
         "brand_id": brandId,
         "tax_class_id": taxClassId,
         "slug": slug,
+    "is_used":isUsed,
         "price": price.toJson(),
         "special_price": specialPrice == null ? null : specialPrice.toJson(),
         "special_price_type": specialPriceType,

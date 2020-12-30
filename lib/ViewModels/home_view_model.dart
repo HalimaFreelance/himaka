@@ -43,7 +43,7 @@ class HomeViewModel extends BaseModel {
       'page': _page
     };
     temp = await _api.getHomeApi(token);
-    print("iddd" + temp.data.products[0].id.toString());
+    // print("iddd" + temp.data.products[0].id.toString());
 
     _homeResponse = temp;
     if (_total == 0 && temp != null && temp.data != null)

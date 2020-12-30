@@ -16,6 +16,8 @@ import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/filter_view_model.dart';
 import 'package:himaka/ViewModels/home_view_model.dart';
 import 'package:himaka/services/base_view.dart';
+import 'package:himaka/services/locator.dart';
+import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/caching.dart';
 import 'package:himaka/utils/globals.dart';
@@ -498,9 +500,14 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                                                                   ),
                                                                 ),
                                                                 Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerLeft,
+                                                                  alignment:locator<
+                                                                      AppLanguage>()
+                                                                      .appLocal
+                                                                      .languageCode ==
+                                                                      "en"
+                                                                      ?Alignment
+                                                                      .centerLeft:Alignment
+                                                                      .centerRight,
                                                                   child: SmoothStarRating(
                                                                       allowHalfRating:
                                                                           false,
@@ -527,6 +534,29 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                                                                               .deepOrangeAccent,
                                                                       spacing:
                                                                           0.0),
+                                                                ),
+                                                                Align(
+                                                                  alignment:locator<
+                                                                    AppLanguage>()
+                                                                    .appLocal
+                                                                    .languageCode ==
+                                                                    "en"
+                                                                    ?Alignment
+                                                                      .centerLeft:Alignment
+                                                                    .centerRight,
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.symmetric(horizontal:4.0),
+                                                                    child: Container(
+                                                                      color: Colors.orange,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.all(4.0),
+                                                                        child: Text(
+                                                                          model.productsList[index].isUsed=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
+                                                                          style: TextStyle(color: Colors.white, fontSize: 10, fontFamily:"roboto",fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                                 SizedBox(
                                                                   height: MediaQuery.of(

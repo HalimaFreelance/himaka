@@ -190,7 +190,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  .35,
+                                                  .29,
                                               // width: 130,
                                               height: 50,
                                               decoration: BoxDecoration(
@@ -221,7 +221,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                           .translate('filter'),
                                                       style: TextStyle(
                                                           color: Colors.white,
-                                                          fontSize: 20,
+                                                          fontSize: 18,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     )
@@ -491,6 +491,31 @@ class _SearchScreenState extends State<SearchScreen> {
                                                                                       ),
                                                                                     )
                                                                         ]),
+                                                                    Align(
+                                                                      alignment:
+                                                                      locator<
+                                                                          AppLanguage>()
+                                                                          .appLocal
+                                                                          .languageCode ==
+                                                                          "en"
+                                                                          ?Alignment
+                                                                          .centerLeft:Alignment
+                                                                          .centerRight,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.symmetric(horizontal:4.0),
+                                                                        child: Container(
+                                                                          color: Colors.orange,
+                                                                          child: Padding(
+                                                                            padding: const EdgeInsets.all(4.0),
+                                                                            child: Text(
+                                                                              model.productOrService[index].isUsed=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
+                                                                              style: TextStyle(color: Colors.white, fontSize: 10, fontFamily:"roboto",fontWeight: FontWeight.bold),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+
                                                                     SizedBox(
                                                                       height: MediaQuery.of(context)
                                                                               .size

@@ -17,6 +17,8 @@ import 'package:himaka/Screens/wish_list_screen.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/product_service_details_view_model.dart';
 import 'package:himaka/services/base_view.dart';
+import 'package:himaka/services/locator.dart';
+import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/show_toast.dart';
@@ -473,13 +475,27 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                 SizedBox(
                                                   height: 6,
                                                 ),
-//                                                Container(
-//                                                    width:
-//                                                        MediaQuery.of(context)
-//                                                            .size
-//                                                            .width,
-//                                                    child: Text(
-//                                                        'brand name : NIKE')),
+                                               Align(
+                                                 alignment:locator<
+                                                     AppLanguage>()
+                                                     .appLocal
+                                                     .languageCode ==
+                                                     "en"
+                                                     ?Alignment
+                                                     .centerLeft:Alignment
+                                                     .centerRight,
+                                                 child: Container(
+                                                     color: Colors.orange,
+                                                     child: Padding(
+                                                       padding: const EdgeInsets.all(4.0),
+                                                       child: Text(
+                                                         model.productOrServiceDetailsResponse
+                                                             .data
+                                                             .item.isUsed=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
+                                                         style: TextStyle(color: Colors.white, fontSize: 10, fontFamily:"roboto",fontWeight: FontWeight.bold),
+                                                       ),
+                                                     )),
+                                               ),
                                                 SizedBox(
                                                   height: 6,
                                                 ),
