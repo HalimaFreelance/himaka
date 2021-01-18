@@ -130,7 +130,10 @@ class FirebaseController {
 
         final List<DocumentSnapshot> unReadMSGDocuments =
             unReadMSGDocument.documents;
+        // print("jjjj");
+        // print(unReadMSGDocuments.last.data['newPrice']);
         unReadMSGCount = unReadMSGCount + unReadMSGDocuments.length;
+
       }
       print('unread MSG count is $unReadMSGCount');
 //      }

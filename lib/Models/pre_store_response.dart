@@ -25,9 +25,15 @@ class PreStoreData {
   List<PaymentWays> paymentMethods;
   List<ShippingMethods> shippingMethods;
   bool canPurchase;
+  bool commCount;
+  bool personalCount;
+  var price;
 
   PreStoreData.fromJson(Map<String, dynamic> json) {
     canPurchase = json['canPurchasing'];
+    commCount = json['commission_acount'];
+    personalCount = json['personal_acount'];
+    price = json['price'];
 
     if (json['countries'] != null) {
       countries = new List<BillingCountry>();

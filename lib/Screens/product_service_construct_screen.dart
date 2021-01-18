@@ -25,8 +25,8 @@ class ProductServiceConstructScreen extends StatefulWidget {
   _ProductServiceConstructScreenState createState() =>
       _ProductServiceConstructScreenState();
 }
-enum FilterType { isNew, isUsed }
 
+enum FilterType { isNew, isUsed }
 
 class _ProductServiceConstructScreenState
     extends State<ProductServiceConstructScreen> {
@@ -124,12 +124,16 @@ class _ProductServiceConstructScreenState
                                               if (value != null &&
                                                   value == "1") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.camera, 2,model,
+                                                    ImageSource.camera,
+                                                    2,
+                                                    model,
                                                     context: context);
                                               } else if (value != null &&
                                                   value == "2") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.gallery, 2,model,
+                                                    ImageSource.gallery,
+                                                    2,
+                                                    model,
                                                     context: context);
                                               }
                                             });
@@ -137,8 +141,8 @@ class _ProductServiceConstructScreenState
                                           child: _imageFile2 != null
                                               ? Platform.isAndroid
                                                   ? FutureBuilder<void>(
-                                                      future:
-                                                          retrieveLostData(2,model),
+                                                      future: retrieveLostData(
+                                                          2, model),
                                                       builder: (BuildContext
                                                               context,
                                                           AsyncSnapshot<void>
@@ -190,12 +194,16 @@ class _ProductServiceConstructScreenState
                                               if (value != null &&
                                                   value == "1") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.camera, 3,model,
+                                                    ImageSource.camera,
+                                                    3,
+                                                    model,
                                                     context: context);
                                               } else if (value != null &&
                                                   value == "2") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.gallery, 3,model,
+                                                    ImageSource.gallery,
+                                                    3,
+                                                    model,
                                                     context: context);
                                               }
                                             });
@@ -203,8 +211,8 @@ class _ProductServiceConstructScreenState
                                           child: _imageFile3 != null
                                               ? Platform.isAndroid
                                                   ? FutureBuilder<void>(
-                                                      future:
-                                                          retrieveLostData(3,model),
+                                                      future: retrieveLostData(
+                                                          3, model),
                                                       builder: (BuildContext
                                                               context,
                                                           AsyncSnapshot<void>
@@ -266,12 +274,16 @@ class _ProductServiceConstructScreenState
                                               if (value != null &&
                                                   value == "1") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.camera, 4,model,
+                                                    ImageSource.camera,
+                                                    4,
+                                                    model,
                                                     context: context);
                                               } else if (value != null &&
                                                   value == "2") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.gallery, 4,model,
+                                                    ImageSource.gallery,
+                                                    4,
+                                                    model,
                                                     context: context);
                                               }
                                             });
@@ -279,8 +291,8 @@ class _ProductServiceConstructScreenState
                                           child: _imageFile4 != null
                                               ? Platform.isAndroid
                                                   ? FutureBuilder<void>(
-                                                      future:
-                                                          retrieveLostData(4,model),
+                                                      future: retrieveLostData(
+                                                          4, model),
                                                       builder: (BuildContext
                                                               context,
                                                           AsyncSnapshot<void>
@@ -332,12 +344,16 @@ class _ProductServiceConstructScreenState
                                               if (value != null &&
                                                   value == "1") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.camera, 5,model,
+                                                    ImageSource.camera,
+                                                    5,
+                                                    model,
                                                     context: context);
                                               } else if (value != null &&
                                                   value == "2") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.gallery, 5,model,
+                                                    ImageSource.gallery,
+                                                    5,
+                                                    model,
                                                     context: context);
                                               }
                                             });
@@ -345,8 +361,8 @@ class _ProductServiceConstructScreenState
                                           child: _imageFile5 != null
                                               ? Platform.isAndroid
                                                   ? FutureBuilder<void>(
-                                                      future:
-                                                          retrieveLostData(5,model),
+                                                      future: retrieveLostData(
+                                                          5, model),
                                                       builder: (BuildContext
                                                               context,
                                                           AsyncSnapshot<void>
@@ -398,12 +414,16 @@ class _ProductServiceConstructScreenState
                                               if (value != null &&
                                                   value == "1") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.camera, 6,model,
+                                                    ImageSource.camera,
+                                                    6,
+                                                    model,
                                                     context: context);
                                               } else if (value != null &&
                                                   value == "2") {
                                                 _onImageButtonPressed(
-                                                    ImageSource.gallery, 6,model,
+                                                    ImageSource.gallery,
+                                                    6,
+                                                    model,
                                                     context: context);
                                               }
                                             });
@@ -411,8 +431,8 @@ class _ProductServiceConstructScreenState
                                           child: _imageFile6 != null
                                               ? Platform.isAndroid
                                                   ? FutureBuilder<void>(
-                                                      future:
-                                                          retrieveLostData(6,model),
+                                                      future: retrieveLostData(
+                                                          6, model),
                                                       builder: (BuildContext
                                                               context,
                                                           AsyncSnapshot<void>
@@ -606,73 +626,80 @@ class _ProductServiceConstructScreenState
                                         child: Container(child: Text("%")),
                                       )),
                                 ),
-                                widget.type==1?Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, left: 8.0, right: 8.0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    child: Text(
-                                      AppLocalizations.of(context)
-                                          .translate('type'),
-                                      style: TextStyle(
-                                          fontSize: 15,),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                ):Container(),
-                                widget.type==1?Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: ListTile(
-                                        title: Text(AppLocalizations.of(context)
-                                            .translate('new')),
-                                        leading: Radio(
-                                          activeColor: Colors.blue,
-                                          value: FilterType.isNew,
-                                          groupValue: _character,
-                                          onChanged: (FilterType value) {
-                                            setState(() {
-                                              _character = value;
-                                            });
-                                          },
+                                widget.type == 1
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8.0, left: 8.0, right: 8.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          child: Text(
+                                            AppLocalizations.of(context)
+                                                .translate('type'),
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: ListTile(
-                                        title: Text(AppLocalizations.of(context)
-                                            .translate('used')),
-                                        leading: Radio(
-                                          activeColor: Colors.blue,
-                                          value: FilterType.isUsed,
-                                          groupValue: _character,
-                                          onChanged: (FilterType value) {
-                                            setState(() {
-                                              _character = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ):Container(),
-
+                                      )
+                                    : Container(),
+                                widget.type == 1
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: ListTile(
+                                              title: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('new')),
+                                              leading: Radio(
+                                                activeColor: Colors.blue,
+                                                value: FilterType.isNew,
+                                                groupValue: _character,
+                                                onChanged: (FilterType value) {
+                                                  setState(() {
+                                                    _character = value;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: ListTile(
+                                              title: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate('used')),
+                                              leading: Radio(
+                                                activeColor: Colors.blue,
+                                                value: FilterType.isUsed,
+                                                groupValue: _character,
+                                                onChanged: (FilterType value) {
+                                                  setState(() {
+                                                    _character = value;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
                               ],
                             )),
                         model.state == ViewState.Busy
                             ? Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: CircularProgressIndicator(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: CircularProgressIndicator(
                                       backgroundColor: Colors.lightBlue,
                                     ),
+                                  ),
                                 ),
-                              ),
-                            )
+                              )
                             : Container(
                                 width: double.infinity,
                                 child: Padding(
@@ -696,11 +723,19 @@ class _ProductServiceConstructScreenState
                                           _imageFile5,
                                           _imageFile6)) {
                                         AddProductResponse response =
-                                            await addProduct(model);
+                                            await addProduct(model,
+                                                 widget.type == 1
+                                                    ? _character ==
+                                                            FilterType.isUsed
+                                                        ? 1
+                                                        : 0
+                                                    : 1);
                                         if (response != null &&
                                             response.status) {
-                                          showToast(AppLocalizations.of(context)
-                                              .translate('added_successfully'),
+                                          showToast(
+                                              AppLocalizations.of(context)
+                                                  .translate(
+                                                      'added_successfully'),
                                               Colors.green);
                                         } else if (response != null &&
                                             !response.status) {
@@ -757,7 +792,8 @@ class _ProductServiceConstructScreenState
     model.prepAddProductService(locator<AppLanguage>().appLocal.languageCode);
   }
 
-  Future<AddProductResponse> addProduct(AddProductOrServiceViewModel model) {
+  Future<AddProductResponse> addProduct(AddProductOrServiceViewModel model,
+      int used) {
     return model.addProductOrService(
         locator<AppLanguage>().appLocal.languageCode,
         _nameController.text.trim(),
@@ -769,10 +805,12 @@ class _ProductServiceConstructScreenState
         _imageFile3,
         _imageFile4,
         _imageFile5,
-        _imageFile6);
+        _imageFile6,
+        used);
   }
 
-  void _onImageButtonPressed(ImageSource source, int imageNum,AddProductOrServiceViewModel model,
+  void _onImageButtonPressed(
+      ImageSource source, int imageNum, AddProductOrServiceViewModel model,
       {BuildContext context}) async {
     {
       try {
@@ -784,11 +822,10 @@ class _ProductServiceConstructScreenState
           imageQuality: 50,
         );
         if (pickedFile != null) {
-          model.imagesValidate=true;
+          model.imagesValidate = true;
           setState(() {
             if (imageNum == 2) {
               _imageFile2 = File(pickedFile.path);
-
             } else if (imageNum == 3) {
               _imageFile3 = File(pickedFile.path);
             } else if (imageNum == 4) {
@@ -806,14 +843,15 @@ class _ProductServiceConstructScreenState
     }
   }
 
-  Future<void> retrieveLostData(int imageNum,AddProductOrServiceViewModel model) async {
+  Future<void> retrieveLostData(
+      int imageNum, AddProductOrServiceViewModel model) async {
     ImagePicker _picker = ImagePicker();
     final LostData response = await _picker.getLostData();
     if (response.isEmpty) {
       return;
     }
     if (response.file != null) {
-      model.imagesValidate=true;
+      model.imagesValidate = true;
       setState(() {
         if (imageNum == 2) {
           _imageFile2 = File(response.file.path);

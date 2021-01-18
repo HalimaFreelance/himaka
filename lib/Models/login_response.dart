@@ -43,17 +43,15 @@ class LoginDataResponse {
 
 class LoginUserResponse {
   int id;
+  var  personal_acount,commission_acount,cachback_caccount;
 
-  String first_name,
+      String first_name,
       last_name,
       password,
       email,
       isPaid,
-      commission_acount,
       profit_acount,
-      cachback_caccount,
       cadeau_acount,
-      personal_acount,
       token,
       address,
       cardImage,

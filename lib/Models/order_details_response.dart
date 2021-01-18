@@ -51,9 +51,9 @@ class StoreOrderReq {
   String country;
   String bState;
   String shippingMethod;
-  String paymentMethod;
+  // String paymentMethod;
   String currency="EG";
-  var transId;
+  // var transId;
   int shipToDifferentAddress=0;
   int terms=1;
 
@@ -71,8 +71,9 @@ class StoreOrderReq {
       this.country,
       this.bState,
       this.shippingMethod,
-      this.paymentMethod,
-      this.transId);
+      // this.paymentMethod,
+      // this.transId
+      );
 
   Map<String, dynamic> storeOrderToMap(List<Item> items) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -88,11 +89,11 @@ class StoreOrderReq {
     data['billing_country'] = country;
     data['billing_state'] = bState;
     data['shipping_method'] = shippingMethod;
-    data['payment_method'] = paymentMethod;
+    // data['payment_method'] = paymentMethod;
     data['ship_to_different_address'] = shipToDifferentAddress;
     data['terms_and_conditions'] = terms;
     data['currency'] = currency;
-    data['transaction_id'] = transId;
+    data['transaction_id'] = -1;
 
     List<int> products = new List<int>();
     List<int> quantity = new List<int>();

@@ -142,7 +142,7 @@ class Item {
   bool isOutOfStock;
   bool isNew;
   bool hasPercentageSpecialPrice;
-  int specialPricePercent;
+  var specialPricePercent;
   String name;
   String description;
   dynamic shortDescription;

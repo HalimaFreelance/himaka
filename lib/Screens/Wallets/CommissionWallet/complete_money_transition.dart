@@ -170,9 +170,9 @@ class _CompleteMoneyTransitionScreenState
                                       child: Stack(
                                         children: [
                                           SvgPicture.asset(
-                                            'images/commission_convert_img.svg',
+                                            'images/commission_convert.svg',
                                             // height: 120.0,
-                                            allowDrawingOutsideViewBox: true,
+                                            // allowDrawingOutsideViewBox: true,
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(

@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:himaka/Models/order_details_response.dart';
 import 'package:himaka/Models/pre_store_response.dart';
 import 'package:himaka/Models/product_service_details_response.dart';
+import 'package:himaka/Screens/payment_check_out_methods.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/check_out_view_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
-import 'package:himaka/utils/caching.dart';
 import 'package:himaka/utils/show_toast.dart';
 
-import 'home.dart';
 
 class CheckOutScreen extends StatefulWidget {
   List<Item> items;
+  String totalCost;
 
-  CheckOutScreen(this.items);
+  CheckOutScreen(this.items,this.totalCost);
 
   @override
   _CheckOutScreenState createState() => _CheckOutScreenState();
@@ -480,77 +480,77 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                             ),
                                           ),
                                     SizedBox(height: 16.0),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: DropdownButton<PaymentWays>(
-                                          dropdownColor: Colors.white,
-                                          icon: Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.black,
-                                          ),
-                                          isExpanded: true,
-                                          hint: Text(
-                                            AppLocalizations.of(context)
-                                                .translate('select_payment'),
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                          value: paymentWays,
-                                          onChanged: (PaymentWays value) {
-                                            setState(() {
-                                              model.paymentMethod = true;
-                                              paymentWays = value;
-                                            });
-                                          },
-                                          items: model.preStoreResponse.data
-                                              .paymentMethods
-                                              .map(
-                                            (PaymentWays method) {
-                                              return DropdownMenuItem<
-                                                  PaymentWays>(
-                                                value: method,
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      method.name,
-                                                      style: TextStyle(
-                                                          color: Colors.black),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                    model.paymentMethod
-                                        ? Container()
-                                        : Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8.0, left: 16, right: 16),
-                                            child: Container(
-                                              width: double.infinity,
-                                              child: Text(
-                                                AppLocalizations.of(context)
-                                                    .translate('list_error'),
-                                                style: TextStyle(
-                                                    color: Colors.red[700],
-                                                    fontSize: 13),
-                                                textAlign: TextAlign.start,
-                                              ),
-                                            ),
-                                          ),
+                                    // Container(
+                                    //   decoration: BoxDecoration(
+                                    //     border: Border.all(color: Colors.grey),
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(10.0),
+                                    //   ),
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.symmetric(
+                                    //         horizontal: 8.0),
+                                    //     child: DropdownButton<PaymentWays>(
+                                    //       dropdownColor: Colors.white,
+                                    //       icon: Icon(
+                                    //         Icons.arrow_drop_down,
+                                    //         color: Colors.black,
+                                    //       ),
+                                    //       isExpanded: true,
+                                    //       hint: Text(
+                                    //         AppLocalizations.of(context)
+                                    //             .translate('select_payment'),
+                                    //         style:
+                                    //             TextStyle(color: Colors.black),
+                                    //       ),
+                                    //       value: paymentWays,
+                                    //       onChanged: (PaymentWays value) {
+                                    //         setState(() {
+                                    //           model.paymentMethod = true;
+                                    //           paymentWays = value;
+                                    //         });
+                                    //       },
+                                    //       items: model.preStoreResponse.data
+                                    //           .paymentMethods
+                                    //           .map(
+                                    //         (PaymentWays method) {
+                                    //           return DropdownMenuItem<
+                                    //               PaymentWays>(
+                                    //             value: method,
+                                    //             child: Row(
+                                    //               children: [
+                                    //                 SizedBox(
+                                    //                   width: 10,
+                                    //                 ),
+                                    //                 Text(
+                                    //                   method.name,
+                                    //                   style: TextStyle(
+                                    //                       color: Colors.black),
+                                    //                 ),
+                                    //               ],
+                                    //             ),
+                                    //           );
+                                    //         },
+                                    //       ).toList(),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // model.paymentMethod
+                                    //     ? Container()
+                                    //     : Padding(
+                                    //         padding: const EdgeInsets.only(
+                                    //             top: 8.0, left: 16, right: 16),
+                                    //         child: Container(
+                                    //           width: double.infinity,
+                                    //           child: Text(
+                                    //             AppLocalizations.of(context)
+                                    //                 .translate('list_error'),
+                                    //             style: TextStyle(
+                                    //                 color: Colors.red[700],
+                                    //                 fontSize: 13),
+                                    //             textAlign: TextAlign.start,
+                                    //           ),
+                                    //         ),
+                                    //       ),
                                     Row(
                                       children: <Widget>[
                                         Theme(
@@ -660,9 +660,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                       billingState,
                                                       cityController.text,
                                                       zipController.text,
-                                                      shippingMethods,
-                                                      paymentWays)) {
-                                                    if (paymentWays.id == "cod") {
+                                                      shippingMethods)) {
+
+                                                    // if (paymentWays.id == "cod") {
                                                       OrderDetailsResponse
                                                           response =
                                                           await storeOrder(
@@ -670,24 +670,14 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
                                                       if (response != null) {
                                                         if (response.status) {
-                                                          showToast(
-                                                              AppLocalizations.of(
-                                                                  context)
-                                                                  .translate(
-                                                                  'opertaion_succ'),
-                                                              Colors.green);
-                                                          deleteCart();
-                                                          Navigator
-                                                              .pushAndRemoveUntil(
+                                                          Navigator.push(
                                                               context,
-                                                              MaterialPageRoute(
-                                                                  builder: (
-                                                                      context) =>
-                                                                      HomePage()),
-                                                                  (Route<
-                                                                  dynamic> route) =>
-                                                              false);
-
+                                                              new MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                  new PaymentCheckOutMethodsScreen(
+                                                                    1,
+                                                                      orderId: response.data.orderDetails.id,
+                                                                  cost:widget.totalCost )));
 
                                                         } else {
                                                           showToast(
@@ -711,14 +701,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                             .showSnackBar(
                                                                 snackBar);
                                                       }
-                                                    } else {
-                                                      showToast(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .translate(
-                                                                  'payment_inprogress'),
-                                                          Colors.red);
-                                                    }
+
                                                   }
                                                 },
                                                 color: Colors.lightBlueAccent,
@@ -769,7 +752,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                       );
           }),
-        ));
+        )
+    );
   }
 
   @override
@@ -785,7 +769,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     zipController.dispose();
   }
 
-  Future<OrderDetailsResponse> storeOrder(CheckOutViewModel model, {transId}) {
+  Future<OrderDetailsResponse> storeOrder(CheckOutViewModel model) {
     return model.storeOrder(
         locator<AppLanguage>().appLocal.languageCode,
         emailController.text.trim(),
@@ -798,9 +782,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         country.id,
         billingState.id,
         shippingMethods.id,
-        paymentWays.id,
-        widget.items,
-        transId: paymentWays.id == "cod" ? null: transId);
+        // paymentWays.id,
+        widget.items);
   }
 
   void refreshScreen(CheckOutViewModel model) {

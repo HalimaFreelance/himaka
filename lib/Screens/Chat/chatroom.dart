@@ -7,7 +7,6 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 import 'package:himaka/Models/change_price_response.dart';
 import 'package:himaka/Screens/Chat/pickImageController.dart';
 import 'package:himaka/Screens/Chat/utils.dart';
-import 'package:himaka/Screens/order_details.dart';
 import 'package:himaka/services/api.dart';
 import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/app_localizations.dart';
@@ -15,6 +14,7 @@ import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/show_toast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../payment_check_out_methods.dart';
 import 'firebaseController.dart';
 import 'fullphoto.dart';
 import 'notificationController.dart';
@@ -32,6 +32,7 @@ class ChatRoom extends StatefulWidget {
   String myID, serviceProviderUserId;
   String myName;
   int itemId;
+
 //  String selectedUserToken;
   String selectedUserID;
   String chatID;
@@ -166,11 +167,12 @@ class _ChatRoomState extends State<ChatRoom> {
                           })
                       : InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        OrderDetailsScreen(2)));
+                              Navigator.push(
+                                  context,
+                                  new MaterialPageRoute(
+                                      builder: (context) =>
+                                          new PaymentCheckOutMethodsScreen(2,
+                                              orderId: widget.itemId)));
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -182,7 +184,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                   const EdgeInsets.symmetric(horizontal: 0.0),
                               child: Center(
                                 child: Text(
-                                  "Accept service provider offer",
+                                  "Accept Service Provider offer",
                                   style: TextStyle(color: Colors.white),
                                   textAlign: TextAlign.center,
                                 ),
@@ -639,7 +641,7 @@ class _ChatRoomState extends State<ChatRoom> {
         context: context,
         content: Column(
           children: <Widget>[
-            Text("Enter the value that you agreed on"),
+            Text("Enter the value that you want"),
             SizedBox(
               height: 6,
             ),
@@ -672,11 +674,11 @@ class _ChatRoomState extends State<ChatRoom> {
           DialogButton(
             onPressed: () async {
               if (valueKeyController.text.isNotEmpty) {
+
                 ChangePriceResponse changePriceResponse = await changePrice(
                     widget.itemId, int.parse(valueKeyController.text));
 
                 //TODO data is once [] and once {}
-//                showToast(changePriceResponse.msg, Colors.black);
                 if (changePriceResponse == null) {
                   showToast(
                       AppLocalizations.of(context).translate('check_network'),
@@ -685,8 +687,6 @@ class _ChatRoomState extends State<ChatRoom> {
                 } else if (changePriceResponse.status &&
                     changePriceResponse.data != null) {
                   showToast('changed', Colors.green);
-                  Navigator.pop(context);
-                  Navigator.pop(context);
                 } else if (!changePriceResponse.status) {
                   showToast(
                       AppLocalizations.of(context)
@@ -694,7 +694,7 @@ class _ChatRoomState extends State<ChatRoom> {
                       Colors.red);
                   Navigator.pop(context);
                 } else if (changePriceResponse.data == null) {
-                  showToast('BACKEND => data : []', Colors.red);
+                  // showToast('BACKEND => data : []', Colors.red);
                   Navigator.pop(context);
                 } else {
                   showToast(
@@ -788,7 +788,8 @@ class _ChatRoomState extends State<ChatRoom> {
     Map<String, dynamic> data = {
       "token": Globals.userData.token,
       'item_id': itemId,
-      'new_price': newPrice
+      'new_price': newPrice,
+      "user_id":widget.selectedUserID
     };
     ChangePriceResponse changePriceResponse = await _api.changePrice(data);
     return changePriceResponse;

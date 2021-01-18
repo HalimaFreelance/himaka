@@ -7,20 +7,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/cart.dart';
-import 'package:himaka/Models/home_response.dart';
 import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/Screens/add_product_service.dart';
-import 'package:himaka/Screens/start_screen.dart';
-import 'package:himaka/ViewModels/add_fav_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
-import 'package:himaka/ViewModels/filter_view_model.dart';
 import 'package:himaka/ViewModels/home_view_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
-import 'package:himaka/utils/caching.dart';
-import 'package:himaka/utils/globals.dart';
 import 'package:himaka/utils/show_toast.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -43,6 +37,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
   Widget imageCarousel(List images) {
     // print("hh" + images.toString());
     // removeUserData();
+
     return Container(
       height: (MediaQuery.of(context).size.height / 2) - 120,
       child: Container(
@@ -559,11 +554,10 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height /
-                                                                      182,
+                                                                    height: MediaQuery.of(context)
+                                                                        .size
+                                                                        .height /
+                                                                        182,
                                                                 ),
                                                                 Expanded(
                                                                   child:

@@ -11,6 +11,7 @@ import 'package:himaka/Screens/product_categories_screen.dart';
 import 'package:himaka/Screens/search_screen.dart';
 import 'package:himaka/Screens/service_categories_screen.dart';
 import 'package:himaka/Screens/settings_screen.dart';
+// import 'package:himaka/Screens/test.dart';
 import 'package:himaka/Screens/wallets_screen.dart';
 import 'package:himaka/Screens/wish_list_screen.dart';
 import 'package:himaka/utils/app_localizations.dart';
@@ -43,7 +44,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final _pageOptions = [
-      FirstHomeScreen(callback), //0
+      // FirstHomeScreen(callback), //0
+      FirstHomeScreen(callback),
       ServiceCategoriesScreen(callback), //1 service
       ProductCategoriesScreen(callback), //2 products
       WalletsScreen(),

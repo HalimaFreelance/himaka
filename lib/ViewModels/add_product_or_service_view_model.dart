@@ -79,7 +79,8 @@ class AddProductOrServiceViewModel extends BaseModel {
       File image2,
       File image3,
       File image4,
-      File image5) async {
+      File image5,
+      int used) async {
     setState(ViewState.Busy);
     AddProductReq req = new AddProductReq(
         lang,
@@ -90,7 +91,7 @@ class AddProductOrServiceViewModel extends BaseModel {
         await getAddProductImages(image1, image2, image3, image4, image5),
         discountPrice: discount != null ? discount : "");
     AddProductResponse response =
-        await _api.addProductOrService(req.addProductToMap(categories));
+        await _api.addProductOrService(req.addProductToMap(categories,used));
     setState(ViewState.Idle);
     return response;
   }

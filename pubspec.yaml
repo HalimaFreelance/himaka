@@ -34,8 +34,8 @@ dependencies:
   flutter_range_slider: "^1.5.0"
   cloud_firestore: ^0.13.0+1
   firebase_storage: ^3.1.5
-
-
+  webview_flutter: ^0.3.23
+  uuid: ^2.2.2
   image_cropper: ^1.2.2
   firebase_messaging: ^6.0.13
   flutter_local_notifications: ^1.4.3
@@ -113,6 +113,7 @@ flutter:
      - images/personal_recent.svg
      - images/personal_recent_right.svg
      - images/upgrade.png
+     - images/commission_convert.svg
      - images/icon_nationalid.svg
      - images/icon_wallet.svg
      - images/icon_home.svg
@@ -146,6 +147,9 @@ flutter:
      - images/personal_wallet_history.svg
      - images/arrow_bottom_left.svg
      - images/arrow_up_right.svg
+     - images/fawry.png
+     - images/aman.png
+     - images/credit_card.png
 
 
   fonts:

@@ -725,7 +725,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     });
     _phoneController = TextEditingController(
-        text: model.profileResponse.data.user.mobile.replaceAll("+", "00"));
+        text: model.profileResponse.data.user.mobile!=null?
+        model.profileResponse.data.user.mobile.replaceAll("+", "00"):"");
     _phoneController.addListener(() {
       final mobile = _phoneController.text;
       _phoneController.value = _phoneController.value.copyWith(

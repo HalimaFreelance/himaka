@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Models/order_details_response.dart';
 import 'package:himaka/Models/pre_store_response.dart';
 import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/services/api.dart';
 import 'package:himaka/services/locator.dart';
+import 'package:himaka/utils/caching.dart';
 import 'package:himaka/utils/globals.dart';
 
 import 'base_model.dart';
@@ -23,6 +27,13 @@ class CheckOutViewModel extends BaseModel {
   bool _cityValidate = true;
   bool _zipValidate = true;
   bool _termsAgreeValidate = true;
+
+  ////////////////////
+  bool _sOPin = true;
+  bool _sOQues = true;
+  bool _sOAnswer = true;
+  bool _sONewPrice = true;
+
   int _serviceId = 1;
 
   Future preStore(String lang) async {
@@ -33,6 +44,28 @@ class CheckOutViewModel extends BaseModel {
       "lang": lang
     };
     _preStoreResponse = await _api.preStore(token);
+    setState(ViewState.Idle);
+  }
+
+  Future checkWalletsBalanceWithCart(String totalCost) async {
+    _serviceId = 1;
+    setState(ViewState.Busy);
+    Map<String, dynamic> token = {
+      "token": Globals.userData.token,
+      "price": totalCost
+    };
+    _preStoreResponse = await _api.checkWalletsBalance(token);
+    setState(ViewState.Idle);
+  }
+  Future checkWalletsBalanceWithService(int serviceId) async {
+    _serviceId = 1;
+    setState(ViewState.Busy);
+    Map<String, dynamic> token = {
+      "token": Globals.userData.token,
+      "id": serviceId,
+      "price":"0",
+    };
+    _preStoreResponse = await _api.checkWalletsBalance(token);
     setState(ViewState.Idle);
   }
 
@@ -48,28 +81,39 @@ class CheckOutViewModel extends BaseModel {
       String country,
       String bState,
       String shippingMethod,
-      String paymentMethod,
-      List<Item> items,
-      {transId}) async {
+      // String paymentMethod,
+      List<Item> items) async {
     _serviceId = 2;
     setState(ViewState.Busy);
-    StoreOrderReq req = new StoreOrderReq(
-        lang,
-        Globals.userData.token,
-        email,
-        phone,
-        fName,
-        lName,
-        address,
-        city,
-        zip,
-        country,
-        bState,
-        shippingMethod,
-        paymentMethod,
-        transId != null ? transId : -1);
+    StoreOrderReq req = new StoreOrderReq(lang, Globals.userData.token, email,
+        phone, fName, lName, address, city, zip, country, bState, shippingMethod
+        // paymentMethod,
+        // transId != null ? transId : -1
+        );
     OrderDetailsResponse response =
         await _api.storeOrder(req.storeOrderToMap(items));
+    setState(ViewState.Idle);
+    return response;
+  }
+
+  Future<LoginResponse> payByWallets(
+      String lang, int walletId, String id, String realPrice, amount) async {
+    _serviceId = 2;
+    setState(ViewState.Busy);
+    Map<String, dynamic> token = {
+      "token": Globals.userData.token,
+      "id": id,
+      "wallet_id": walletId,
+      "amount": amount,
+      "real_price": realPrice
+    };
+    LoginResponse response = await _api.payByWallets(token);
+    if (response != null && response.data != null) {
+      var pass = Globals.userData.password = Globals.userData.password;
+      Globals.userData = response.data.user;
+      Globals.userData.password = pass;
+      saveLoginData(json.encode(response.data.user));
+    }
     setState(ViewState.Idle);
     return response;
   }
@@ -100,8 +144,7 @@ class CheckOutViewModel extends BaseModel {
       BillingState billingState,
       String city,
       String zip,
-      ShippingMethods shippingMethods,
-      PaymentWays paymentWays) {
+      ShippingMethods shippingMethods) {
     bool validate = true;
 
     if (!RegExp(
@@ -166,17 +209,53 @@ class CheckOutViewModel extends BaseModel {
     } else {
       _shippingMethod = true;
     }
-    if (paymentWays == null) {
-      _paymentMethod = false;
-      validate = false;
-    } else {
-      _paymentMethod = true;
-    }
+    // if (paymentWays == null) {
+    //   _paymentMethod = false;
+    //   validate = false;
+    // } else {
+    //   _paymentMethod = true;
+    // }
     if (!termsAgree) {
       _termsAgreeValidate = false;
       validate = false;
     } else {
       _termsAgreeValidate = true;
+    }
+    notifyListeners();
+    return validate;
+  }
+
+  bool validateOfferData(
+      String price, String pin,  String answer,String val, String realPrice) {
+    bool validate = true;
+    if (pin.isNotEmpty && pin == Globals.userData.pin) {
+      _sOPin = true;
+    } else {
+      validate = false;
+      _sOPin = false;
+
+    }
+    if (val != null && val == Globals.userData.question) {
+      _sOQues = true;
+    } else {
+      print(Globals.userData.question);
+      validate = false;
+      _sOQues = false;
+    }
+    if (answer.isNotEmpty && answer == Globals.userData.answer) {
+      _sOAnswer = true;
+    } else {
+      print(Globals.userData.answer);
+      validate = false;
+      _sOAnswer = false;
+
+    }
+    if (price.isNotEmpty &&
+        (double.parse(price) < (double.parse(realPrice) * 0.9))) {
+      _sONewPrice = true;
+    } else {
+      validate = false;
+      _sONewPrice = false;
     }
     notifyListeners();
     return validate;
@@ -230,4 +309,12 @@ class CheckOutViewModel extends BaseModel {
   bool get cityValidate => _cityValidate;
 
   bool get termsAgreeValidate => _termsAgreeValidate;
+
+  bool get sONewPrice => _sONewPrice;
+
+  bool get sOAnswer => _sOAnswer;
+
+  bool get sOQues => _sOQues;
+
+  bool get sOPin => _sOPin;
 }

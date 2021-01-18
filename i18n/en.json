@@ -80,7 +80,7 @@
   "select_sub": "Select an annual subscription",
   "sign_up_msg_3": "Select the method you prefer to withdraw your money",
   "select_method": "Select the method",
-
+"answer_the_q": "Answer the question have been chosen",
   "send": "Send",
 
   "add_pictures": "Add Pictures",
@@ -232,7 +232,7 @@
   "search": "Search",
   "filter": "Filters",
   "special_offer_not_valid": "your commision should be larger than product price",
-  "price_not_valid": "The entered price should be larger than 10% of product price",
+  "price_not_valid": "The entered price should be lower than 90% of product price",
   "special_offer": "Special offer",
   "special_offer_msg": "This feature can be used when you have total amount in the wallet , where the full amount is withdrawn and then the discount is refunded on cash back wallet ",
   "desc_error": "Description min length 5 letters",
@@ -285,7 +285,14 @@
   "opertaion_succ": "Your order has been sent successfully",
   "copied": "Copied to the clipboard",
   "upgrade_now": "Upgrade now",
-  "select_y_quse": "Select your question"
+  "select_y_quse": "Select your question",
+  "payment_methods": "Payment methods",
+  "fawry": "Fawry",
+  "aman": "aman",
+  "cash": "Cash",
+  "credit_card": "Credit Card",
+  "complete_payment": "Complete Payment Process",
+  "not_price_determined": "there is not any price determined by service provider"
 
 
 

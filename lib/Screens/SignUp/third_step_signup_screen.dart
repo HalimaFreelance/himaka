@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Models/pre_register_response.dart';
-import 'package:himaka/Screens/SignUp/fourth_step_signup_screen.dart';
 import 'package:himaka/Screens/start_screen.dart';
 import 'package:himaka/ViewModels/auth_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
@@ -13,6 +12,7 @@ import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/show_toast.dart';
+
 
 class ThirdStepSignUpScreen extends StatefulWidget {
   String firstName,
@@ -308,7 +308,6 @@ class _ThirdStepSignUpScreenState extends State<ThirdStepSignUpScreen> {
                                                 .translate(
                                                 'payment_inprogress'),
                                             Colors.red);
-                                        //TODO return payment
                                         // _callFawryAPI(loginResponse.data.subscriptionCost);
                                         // Navigator.pushAndRemoveUntil(
                                         //     context,

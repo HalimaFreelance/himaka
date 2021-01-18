@@ -30,13 +30,13 @@ class MainActivity : FlutterActivity(), FawrySdkCallback {
 //            item.sku = "1"
             items.add(item)
             FawryPluginAppClass.enableLogging = false
-           val serverUrl = "https://atfawry.fawrystaging.com"
-//           val serverUrl = "https://atfawry.com"
+//           val serverUrl = "https://atfawry.fawrystaging.com"
+           val serverUrl = "https://atfawry.com"
 //           val merchantID = "1tSa6uxz2nR8NtecAqS5fQ=="
            val merchantID = "1tSa6uxz2nQvR6pbttqFMg=="
 //            FawryPluginAppClass.skipCustomerInput = true
-//            FawryPluginAppClass.username = "01146114834"
-//            FawryPluginAppClass.email = "maged.soham@fawry.com"
+            FawryPluginAppClass.username = "5himaka_admin"
+            FawryPluginAppClass.email = "fawry@5himaka.com"
             FawrySdk.init(FawrySdk.Styles.STYLE1)
             val merchantRefNumber: String = randomAlphaNumeric(16)
             try {

@@ -13,6 +13,7 @@ import 'package:himaka/Models/home_response.dart';
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Models/order_details_response.dart';
 import 'package:himaka/Models/orders_response.dart';
+import 'package:himaka/Models/payment_response.dart';
 import 'package:himaka/Models/personal_wallet_cash_out.dart';
 import 'package:himaka/Models/pre_personal_wallet_cash_out.dart';
 import 'package:himaka/Models/pre_register_response.dart';
@@ -31,7 +32,6 @@ import 'package:http/http.dart' as http;
 import 'api_headers.dart';
 
 class Api {
-
   static const loginURL = '/login';
   static const logOutURL = '/logout';
   static const registerURL = '/register';
@@ -74,9 +74,14 @@ class Api {
   static const getComplaintsURL = '/get/user-complaints';
   static const addComplaintPreURL = '/get/orders';
   static const addComplaintURL = "/complaint/store";
-  static const change_price = '/products-purchased';
+  static const change_price = '/new-price';
   static const preStoreURL = "/pre/order";
   static const storeURL = "/store/order";
+  static const checkWalletsBalanceURL = "/check/commission/amount";
+  static const payUsingWalletsURL = "/pay/commission";
+  static const payUsingFawryURL = "/fawry/code";
+  static const payUsingAmanURL = "/kiosk";
+  static const getCreditCardURL = "/accept/url";
 
   var client = new http.Client();
 
@@ -480,6 +485,7 @@ class Api {
       return null;
     }
   }
+
   Future<ChangePriceResponse> changePrice(Map body) async {
     var response = await ApiHeaders()
         .genericPostFormDataRequest(path: change_price, map: body);
@@ -510,14 +516,47 @@ class Api {
       return null;
     }
   }
+
   Future<OrderDetailsResponse> storeOrder(Map body) async {
-    var response = await ApiHeaders()
-        .postFormDataRequest(path: storeURL, map: body);
+    var response =
+        await ApiHeaders().postFormDataRequest(path: storeURL, map: body);
     if (response != null) {
       return OrderDetailsResponse.fromJson(response.data);
     } else {
       return null;
     }
   }
-}
 
+  Future<PreStoreResponse> checkWalletsBalance(Map body) async {
+    var response = await ApiHeaders()
+        .postFormDataRequest(path: checkWalletsBalanceURL, map: body);
+    if (response != null) {
+      return PreStoreResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<LoginResponse> payByWallets(Map body) async {
+    var response = await ApiHeaders()
+        .postFormDataRequest(path: payUsingWalletsURL, map: body);
+    if (response != null) {
+      return LoginResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+
+  Future<PaymentResponse> paymentReferenceNum(Map body, int payId) async {
+    var response = await ApiHeaders().postFormDataRequest(
+        path: payId == 1
+            ? payUsingFawryURL
+            : payId == 2 ? payUsingAmanURL : getCreditCardURL,
+        map: body);
+    if (response != null) {
+      return PaymentResponse.fromJson(response.data);
+    } else {
+      return null;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/pre_upgrade_response.dart';
 import 'package:himaka/ViewModels/base_model.dart';
@@ -17,6 +18,21 @@ class UpgradeScreen extends StatefulWidget {
 
 class _UpgradeScreenState extends State<UpgradeScreen> {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  static const platform = const MethodChannel("intergration");
+
+  void _callFawryAPI(String subCost) {
+    _openPayment(subCost);
+  }
+
+  void _openPayment(String subCost) async {
+    String result = await platform.invokeMethod("payment", {'cost': subCost});
+    print("status ya developer:" + result);
+    if(result!=null){
+      Navigator.pop(
+          context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,9 +122,9 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                               8.0),
                                                       child: Text(
                                                         AppLocalizations.of(
-                                                            context)
+                                                                context)
                                                             .translate(
-                                                            'upgrade'),
+                                                                'upgrade'),
                                                         style: TextStyle(
                                                             color: Colors.white,
                                                             fontWeight:
@@ -350,44 +366,51 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                                         index]
                                                                     .status ==
                                                                 3) {
-                                                              PreUpgradeResponse
-                                                                  response =
-                                                                  await upgrade(
-                                                                      model);
-                                                              if (response ==
-                                                                  null) {
-                                                                final snackBar =
-                                                                    SnackBar(
-                                                                  content: Text(AppLocalizations.of(
-                                                                          context)
-                                                                      .translate(
-                                                                          'check_network')),
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .red,
-                                                                );
-                                                                _scaffoldKey
-                                                                    .currentState
-                                                                    .showSnackBar(
-                                                                        snackBar);
-                                                              } else if (response
-                                                                  .status) {
-                                                                showToast(
-                                                                    response
-                                                                        .msg,
-                                                                    Colors
-                                                                        .green);
-                                                                Navigator.pop(
-                                                                    context);
-                                                              } else {
-                                                                showToast(
-                                                                    response
-                                                                        .errors
-                                                                        .toString(),
-                                                                    Colors.red);
-                                                                Navigator.pop(
-                                                                    context);
-                                                              }
+                                                              _callFawryAPI(model
+                                                                  .preUpgradeResponse
+                                                                  .data
+                                                                  .cards[index]
+                                                                  .cost);
+
+                                                              // PreUpgradeResponse
+                                                              //     response =
+                                                              //     await upgrade(
+                                                              //         model);
+                                                              // if (response ==
+                                                              //     null) {
+                                                              //   final snackBar =
+                                                              //       SnackBar(
+                                                              //     content: Text(AppLocalizations.of(
+                                                              //             context)
+                                                              //         .translate(
+                                                              //             'check_network')),
+                                                              //     backgroundColor:
+                                                              //         Colors
+                                                              //             .red,
+                                                              //   );
+                                                              //   _scaffoldKey
+                                                              //       .currentState
+                                                              //       .showSnackBar(
+                                                              //           snackBar);
+                                                              // } else if (response
+                                                              //     .status) {
+                                                              //   showToast(
+                                                              //       response
+                                                              //           .msg,
+                                                              //       Colors
+                                                              //           .green);
+                                                              //   Navigator.pop(
+                                                              //       context);
+                                                              // } else {
+                                                              //   showToast(
+                                                              //       response
+                                                              //           .errors
+                                                              //           .toString(),
+                                                              //       Colors.red);
+                                                              //   Navigator.pop(
+                                                              //       context);
+                                                              // }
+
                                                             }
                                                           },
                                                           child: Container(
@@ -422,10 +445,10 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                                       16.0),
                                                               child: Center(
                                                                 child: Text(
-                                                                    AppLocalizations.of(
-                                                                        context)
-                                                                        .translate(
-                                                                        'upgrade_now'),
+                                                                  AppLocalizations.of(
+                                                                          context)
+                                                                      .translate(
+                                                                          'upgrade_now'),
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .white,

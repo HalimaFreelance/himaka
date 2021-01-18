@@ -12,7 +12,6 @@ import 'package:himaka/Screens/DetailsScreen/delivery_container.dart';
 
 import 'package:himaka/Screens/DetailsScreen/reviews_container.dart';
 import 'package:himaka/Screens/cart_screen.dart';
-import 'package:himaka/Screens/special_offer_screen.dart';
 import 'package:himaka/Screens/wish_list_screen.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/product_service_details_view_model.dart';
@@ -417,7 +416,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                                   padding:
                                                                       const EdgeInsets
                                                                               .all(
-                                                                          10.0),
+                                                                          15.0),
                                                                   child: Text(
                                                                     model
                                                                             .productOrServiceDetailsResponse
@@ -435,41 +434,41 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                         : Container(),
                                                     Expanded(
                                                         child: Container()),
-                                                    InkWell(
-                                                      child: SvgPicture.asset(
-                                                        'images/icon_pricetag.svg',
-                                                        height: 30.0,
-                                                        width: 30.0,
-                                                        allowDrawingOutsideViewBox:
-                                                            true,
-                                                      ),
-                                                      onTap: () {
-                                                        if (int.parse(Globals
-                                                                .userData
-                                                                .commission_acount) >
-                                                            model
-                                                                .productOrServiceDetailsResponse
-                                                                .data
-                                                                .item
-                                                                .newPrice) {
-                                                          Navigator.push(
-                                                              context,
-                                                              new MaterialPageRoute(
-                                                                  builder: (context) => new SpecialOfferScreen(
-                                                                      item: model
-                                                                          .productOrServiceDetailsResponse
-                                                                          .data
-                                                                          .item)));
-                                                        } else {
-                                                          showToast(
-                                                              AppLocalizations.of(
-                                                                      context)
-                                                                  .translate(
-                                                                      'special_offer_not_valid'),
-                                                              Colors.red);
-                                                        }
-                                                      },
-                                                    ),
+                                                    // InkWell(
+                                                    //   child: SvgPicture.asset(
+                                                    //     'images/icon_pricetag.svg',
+                                                    //     height: 30.0,
+                                                    //     width: 30.0,
+                                                    //     allowDrawingOutsideViewBox:
+                                                    //         true,
+                                                    //   ),
+                                                    //   onTap: () {
+                                                    //     if (int.parse(Globals
+                                                    //             .userData
+                                                    //             .commission_acount) >
+                                                    //         model
+                                                    //             .productOrServiceDetailsResponse
+                                                    //             .data
+                                                    //             .item
+                                                    //             .newPrice) {
+                                                    //       Navigator.push(
+                                                    //           context,
+                                                    //           new MaterialPageRoute(
+                                                    //               builder: (context) => new SpecialOfferScreen(
+                                                    //                   item: model
+                                                    //                       .productOrServiceDetailsResponse
+                                                    //                       .data
+                                                    //                       .item)));
+                                                    //     } else {
+                                                    //       showToast(
+                                                    //           AppLocalizations.of(
+                                                    //                   context)
+                                                    //               .translate(
+                                                    //                   'special_offer_not_valid'),
+                                                    //           Colors.red);
+                                                    //     }
+                                                    //   },
+                                                    // ),
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -543,7 +542,8 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                                         .productOrServiceDetailsResponse
                                                                         .data
                                                                         .canPurchasing
-                                                                    ? Navigator
+                                                                    ?
+                                                                Navigator
                                                                         .push(
                                                                             context,
                                                                             MaterialPageRoute(

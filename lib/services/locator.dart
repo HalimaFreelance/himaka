@@ -10,6 +10,7 @@ import 'package:himaka/ViewModels/filter_view_model.dart';
 import 'package:himaka/ViewModels/get_categories_view_model.dart';
 import 'package:himaka/ViewModels/home_view_model.dart';
 import 'package:himaka/ViewModels/orders_view_model.dart';
+import 'package:himaka/ViewModels/payment_view_model.dart';
 import 'package:himaka/ViewModels/personal_wallet_view_model.dart';
 import 'package:himaka/ViewModels/product_service_details_view_model.dart';
 import 'package:himaka/ViewModels/profile_view_model.dart';
@@ -47,5 +48,6 @@ void setupLocator() {
   locator.registerFactory(() => BannerProductsViewModel());
   locator.registerFactory(() => ComplaintsHistoryViewModel());
   locator.registerFactory(() => CheckOutViewModel());
+  locator.registerFactory(() => PaymentViewModel());
 
 }

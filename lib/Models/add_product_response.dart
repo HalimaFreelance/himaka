@@ -36,19 +36,20 @@ class AddProductReq {
       this.lang, this.token, this.name, this.desc, this.price, this.images,
       {this.discountPrice});
 
-  Map<String, dynamic> addProductToMap(List<int> categories) {
+  Map<String, dynamic> addProductToMap(List<int> categories, int used) {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['lang'] = lang;
     data['token'] = token;
     data['name'] = name;
     data['description'] = desc;
     data['price'] = price;
-    if ( discountPrice != "")
-      data['discount_percent'] = discountPrice;
-    for(int i=0;i<categories.length;i++){
+    if (discountPrice != "") data['discount_percent'] = discountPrice;
+    for (int i = 0; i < categories.length; i++) {
       data['categories[$i]'] = categories[i];
     }
     data['images'] = images;
+    data['used'] = used;
+
     return data;
   }
 }

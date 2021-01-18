@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'chatroom.dart';
 
-// import 'file:///home/asmaa/Desktop/himaka-main/lib/Screens/Chat/firebaseController.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
@@ -274,7 +272,7 @@ class _ChatListState extends State<ChatList> {
     print(data.toString());
     if (widget.myID == widget.serviceProviderUserId && _noService == 0) {
       return Container(
-        child: Center(child: Text("no requests on your service yet")),
+        child: Center(child: Text("no requests on your service yet",style: TextStyle(color:Colors.lightBlue),)),
       );
     } else if (_noService == 1) {
       return InkWell(
@@ -302,7 +300,7 @@ class _ChatListState extends State<ChatList> {
         },
       );
     } else if (_noService == 0) {
-      return Container(child: Text('dkkkkk'));
+      return Container(child: Text('dkkkkk',style: TextStyle(color:Colors.lightBlue)));
     } else {
       return Container();
     }

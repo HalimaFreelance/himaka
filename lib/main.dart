@@ -10,6 +10,7 @@ import 'package:himaka/utils/globals.dart';
 import 'package:animated_splash/animated_splash.dart';
 
 import 'Screens/home.dart';
+import 'Screens/payment/sign_up_payment_methods.dart';
 
 void main() async {
   setupLocator();
@@ -81,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                   duration: 1200,
                   type: AnimatedSplashType.StaticDuration,
                   home: SafeArea(
-                      child: _login == "true" ? HomePage() : LanguageScreen()),
+                      child: _login == "true" ? SignUpPaymentMethodsScreen("30") : LanguageScreen()),
                 ),
               );
             }));

@@ -168,7 +168,7 @@ class _CartScreenState extends State<CartScreen> {
                                             Navigator.push(
                                                 context,
                                                 new MaterialPageRoute(
-                                                    builder: (context) => new CheckOutScreen(items)));
+                                                    builder: (context) => new CheckOutScreen(items,getTotalCost().toString())));
                                           },
                                           color: Colors.lightBlueAccent,
                                           shape: RoundedRectangleBorder(
