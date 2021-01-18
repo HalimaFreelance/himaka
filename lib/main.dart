@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
                   duration: 1200,
                   type: AnimatedSplashType.StaticDuration,
                   home: SafeArea(
-                      child: _login == "true" ? SignUpPaymentMethodsScreen("30") : LanguageScreen()),
+                      child: _login == "true" ? HomePage() : LanguageScreen()),
                 ),
               );
             }));

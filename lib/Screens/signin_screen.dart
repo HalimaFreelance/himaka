@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Screens/forget_password_screen.dart';
 import 'package:himaka/Screens/home.dart';
+import 'package:himaka/Screens/payment/sign_up_payment_methods.dart';
 import 'package:himaka/ViewModels/auth_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/services/base_view.dart';
@@ -234,12 +235,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                                             dynamic> route) =>
                                                         false);
                                                   }else{
-                                                    showToast(
-                                                        AppLocalizations.of(
-                                                            context)
-                                                            .translate(
-                                                            'payment_inprogress'),
-                                                        Colors.red);
+                                                    Navigator.push(
+                                                        context,
+                                                        new MaterialPageRoute(
+                                                            builder: (context) => new SignUpPaymentMethodsScreen(loginResponse.data.subscriptionCost.toString())));
                                                     // _callFawryAPI(loginResponse.data.subscriptionCost);
                                                   }
                                                 } else if (!loginResponse

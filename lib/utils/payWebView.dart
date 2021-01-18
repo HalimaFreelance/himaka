@@ -85,8 +85,9 @@ class _PayWebViewState extends State<PayWebView> {
     setState(() async {
       print("urllll"+url);
       if (url.contains("success=false")) {
-        Navigator.pop(context,true);
-        // var transactionResponse = url.split('paymentID=')[1].split("&orderId=");
+        await Future.delayed(const Duration(seconds: 3), (){
+          Navigator.pop(context,true);
+        });        // var transactionResponse = url.split('paymentID=')[1].split("&orderId=");
         // var paymentID = transactionResponse[0];
         // var orderId = transactionResponse[1].split("&transactionid=")[0];
         // var transactionId = transactionResponse[1].split("&transactionid=")[1];

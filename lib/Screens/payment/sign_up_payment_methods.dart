@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:himaka/Models/payment_response.dart';
+import 'package:himaka/Screens/signin_screen.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/payment_view_model.dart';
 import 'package:himaka/services/base_view.dart';
@@ -179,9 +180,40 @@ class _SignUpPaymentMethodsScreenState
                           ),
                           model.state == ViewState.Busy
                               ? CircularProgressIndicator(
-                                  backgroundColor: Colors.lightBlue,
-                                )
-                              : Container()
+                            backgroundColor: Colors.lightBlue,
+                          )
+                              :InkWell(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width*.70,
+                              height: 50.0,
+                              child: Center(
+                                child: new Text(
+                                    AppLocalizations.of(context).translate('sign_in'),
+                                    textAlign: TextAlign.center,
+                                    style:
+                                    TextStyle(color: Colors.white, fontSize: 20)),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.lightBlueAccent,
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: Colors.lightBlueAccent,
+                                ),
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator
+                                  .pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (
+                                          context) =>
+                                          SignInScreen()),
+                                      (Route<
+                                      dynamic> route) =>
+                                  false);
+                            },
+                          ),
                         ],
                       ),
                     ),

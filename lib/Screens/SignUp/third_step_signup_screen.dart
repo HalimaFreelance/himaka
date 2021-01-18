@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Models/pre_register_response.dart';
+import 'package:himaka/Screens/payment/sign_up_payment_methods.dart';
 import 'package:himaka/Screens/start_screen.dart';
 import 'package:himaka/ViewModels/auth_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
@@ -302,12 +303,12 @@ class _ThirdStepSignUpScreenState extends State<ThirdStepSignUpScreen> {
                                         //         .translate(
                                         //         'auth_response_success'),
                                         //     Colors.green);
-                                        showToast(
-                                            AppLocalizations.of(
-                                                context)
-                                                .translate(
-                                                'payment_inprogress'),
-                                            Colors.red);
+                                        Navigator.push(
+                                            context,
+                                            new MaterialPageRoute(
+                                                builder: (context) => new SignUpPaymentMethodsScreen(loginResponse.data.subscriptionCost.toString())));
+
+
                                         // _callFawryAPI(loginResponse.data.subscriptionCost);
                                         // Navigator.pushAndRemoveUntil(
                                         //     context,
