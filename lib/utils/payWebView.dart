@@ -79,17 +79,23 @@ class _PayWebViewState extends State<PayWebView> {
   }
 
   void pageFinishedLoading(String url) {
-    setState(() async {
+    setState(() {
       _isLoading = false;
+    });
+    setState(() async {
       print("urllll"+url);
-      if (url.contains("SuccessPayment")) {
+      if (url.contains("success=false")) {
+        Navigator.pop(context,true);
         // var transactionResponse = url.split('paymentID=')[1].split("&orderId=");
         // var paymentID = transactionResponse[0];
         // var orderId = transactionResponse[1].split("&transactionid=")[0];
         // var transactionId = transactionResponse[1].split("&transactionid=")[1];
 
-      } else if (url.contains("FailedPayment")) {
-        Navigator.pop(context);
+      } else if (url.contains("success=false")) {
+        await Future.delayed(const Duration(seconds: 3), (){
+          Navigator.pop(context,false);
+        });
+
       } else if (url.contains("Declined")) {
         setState(() {
           controller.loadUrl(url);
