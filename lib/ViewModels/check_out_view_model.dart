@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Models/order_details_response.dart';
+import 'package:himaka/Models/payment_response.dart';
 import 'package:himaka/Models/pre_store_response.dart';
 import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/services/api.dart';
@@ -114,6 +115,16 @@ class CheckOutViewModel extends BaseModel {
       Globals.userData.password = pass;
       saveLoginData(json.encode(response.data.user));
     }
+    setState(ViewState.Idle);
+    return response;
+  }
+  Future<PaymentResponse> payUsingReferenceNum(
+      String lang, amount, int paymentId,List<Item> items) async {
+    _serviceId = 2;
+    setState(ViewState.Busy);
+    PaymentReq req = new PaymentReq(lang, amount,token:Globals.userData.token );
+    PaymentResponse response =
+    await _api.paymentReferenceNum(req.checkOutPaymentToMap(items), paymentId);
     setState(ViewState.Idle);
     return response;
   }

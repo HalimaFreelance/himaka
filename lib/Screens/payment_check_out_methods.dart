@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:himaka/Models/login_response.dart';
+import 'package:himaka/Models/payment_response.dart';
+import 'package:himaka/Models/product_service_details_response.dart';
 import 'package:himaka/Screens/home.dart';
 import 'package:himaka/Screens/special_offer_screen.dart';
 import 'package:himaka/ViewModels/base_model.dart';
@@ -10,22 +12,25 @@ import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:himaka/utils/caching.dart';
+import 'package:himaka/utils/payWebView.dart';
+import 'package:himaka/utils/payment_dialog.dart';
 import 'package:himaka/utils/show_toast.dart';
 
 class PaymentCheckOutMethodsScreen extends StatefulWidget {
   final int orderId;
   final String cost;
+  List<Item> items;
   final int serviceProductId; // service = 2, product =1
 
   PaymentCheckOutMethodsScreen(this.serviceProductId,
-      {this.orderId, this.cost});
+      {this.orderId, this.cost, this.items});
 
   @override
   _PaymentCheckOutMethodsScreenState createState() =>
       _PaymentCheckOutMethodsScreenState();
 }
 
-enum PaymentType { comm, personal, fawry, aman }
+enum PaymentType { comm, personal, fawry, aman, credit }
 
 class _PaymentCheckOutMethodsScreenState
     extends State<PaymentCheckOutMethodsScreen> {
@@ -137,18 +142,19 @@ class _PaymentCheckOutMethodsScreenState
                                 },
                                 activeColor: Colors.lightBlueAccent,
                               ),
-                              // RadioListTile(
-                              //   value: PaymentType.cash,
-                              //   groupValue: _character,
-                              //   title: Text(AppLocalizations.of(context).translate('cash')),
-                              //   // subtitle: Text(user.lastName),
-                              //   onChanged: (cash) {
-                              //     setState(() {
-                              //       _character = cash;
-                              //     });
-                              //   },
-                              //   activeColor: Colors.lightBlueAccent,
-                              // ),
+                              RadioListTile(
+                                value: PaymentType.credit,
+                                groupValue: _character,
+                                title: Text(AppLocalizations.of(context)
+                                    .translate('credit_card')),
+                                // subtitle: Text(user.lastName),
+                                onChanged: (credit) {
+                                  setState(() {
+                                    _character = credit;
+                                  });
+                                },
+                                activeColor: Colors.lightBlueAccent,
+                              ),
                               SizedBox(height: 16.0),
                               model.state == ViewState.Busy
                                   ? CircularProgressIndicator(
@@ -225,18 +231,104 @@ class _PaymentCheckOutMethodsScreenState
                                               }
                                             } else if (_character ==
                                                 PaymentType.fawry) {
-                                              showToast(
-                                                  AppLocalizations.of(context)
-                                                      .translate(
-                                                          'payment_inprogress'),
-                                                  Colors.red);
+                                              PaymentResponse response =
+                                                  await payUsingReferenceNum(
+                                                      model, 1);
+                                              if (response != null) {
+                                                if (response.status) {
+                                                  showAlertDialog(context,
+                                                      response.data.toString());
+                                                } else {
+                                                  showToast(
+                                                      response.errors
+                                                          .toString(),
+                                                      Colors.red);
+                                                }
+                                              } else {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'check_network')),
+                                                  backgroundColor: Colors.red,
+                                                );
+                                                _scaffoldKey.currentState
+                                                    .showSnackBar(snackBar);
+                                              }
                                             } else if (_character ==
                                                 PaymentType.aman) {
-                                              showToast(
-                                                  AppLocalizations.of(context)
-                                                      .translate(
-                                                          'payment_inprogress'),
-                                                  Colors.red);
+                                              PaymentResponse response =
+                                                  await payUsingReferenceNum(
+                                                      model, 2);
+                                              if (response != null) {
+                                                if (response.status) {
+                                                  showAlertDialog(context,
+                                                      response.data.toString());
+                                                } else {
+                                                  showToast(
+                                                      response.errors
+                                                          .toString(),
+                                                      Colors.red);
+                                                }
+                                              } else {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'check_network')),
+                                                  backgroundColor: Colors.red,
+                                                );
+                                                _scaffoldKey.currentState
+                                                    .showSnackBar(snackBar);
+                                              }
+                                            } else if (_character ==
+                                                PaymentType.credit) {
+                                              PaymentResponse response =
+                                                  await payUsingReferenceNum(
+                                                      model, 3);
+                                              if (response != null) {
+                                                if (response.status) {
+                                                  var result = await Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              PayWebView(
+                                                                  response
+                                                                      .data)));
+                                                  if (result != null &&
+                                                      result) {
+                                                    deleteCart();
+                                                    Navigator.pushAndRemoveUntil(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    HomePage()),
+                                                        (Route<dynamic>
+                                                                route) =>
+                                                            false);
+                                                  }
+                                                } else {
+                                                  showToast(
+                                                      response.errors
+                                                          .toString(),
+                                                      Colors.red);
+                                                }
+                                              } else {
+                                                final snackBar = SnackBar(
+                                                  content: Text(
+                                                      AppLocalizations.of(
+                                                              context)
+                                                          .translate(
+                                                              'check_network')),
+                                                  backgroundColor: Colors.red,
+                                                );
+                                                _scaffoldKey.currentState
+                                                    .showSnackBar(snackBar);
+                                              }
                                             }
                                           },
                                           color: Colors.lightBlueAccent,
@@ -283,6 +375,28 @@ class _PaymentCheckOutMethodsScreenState
       model.checkWalletsBalanceWithCart(widget.cost);
     else
       model.checkWalletsBalanceWithService(widget.orderId);
+  }
+
+  Future<PaymentResponse> payUsingReferenceNum(
+      CheckOutViewModel model, int paymentId) {
+    if (widget.serviceProductId == 1) {
+      return model.payUsingReferenceNum(
+          locator<AppLanguage>().appLocal.languageCode,
+          widget.cost,
+          paymentId,
+          widget.items);
+    } else {
+      List<Item> item = new List<Item>();
+      item.add(new Item(
+          id: widget.orderId,
+          count: 1,
+          newPrice: model.preStoreResponse.data.price));
+      return model.payUsingReferenceNum(
+          locator<AppLanguage>().appLocal.languageCode,
+          model.preStoreResponse.data.price.toString(),
+          paymentId,
+          item);
+    }
   }
 
   Future<LoginResponse> payByWallets(CheckOutViewModel model) {

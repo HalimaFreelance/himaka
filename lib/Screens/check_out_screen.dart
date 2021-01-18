@@ -677,7 +677,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                                   new PaymentCheckOutMethodsScreen(
                                                                     1,
                                                                       orderId: response.data.orderDetails.id,
-                                                                  cost:widget.totalCost )));
+                                                                  cost:widget.totalCost,items: widget.items, )));
 
                                                         } else {
                                                           showToast(
