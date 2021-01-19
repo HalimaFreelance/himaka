@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:himaka/utils/app_localizations.dart';
 
 showAlertDialog(BuildContext context, String num) {
 
   // set up the button
   Widget okButton = FlatButton(
-    child: Text("OK"),
+    child: Text(AppLocalizations.of(
+        context)
+        .translate(
+        'ok')),
     onPressed: () {
       Navigator.pop(context);
     },
@@ -13,8 +17,14 @@ showAlertDialog(BuildContext context, String num) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Reference Number"),
-    content: Text("Your reference number that you can pay through is "+num),
+    title: Text(AppLocalizations.of(
+        context)
+        .translate(
+        'ref_num')),
+    content: Text(AppLocalizations.of(
+        context)
+        .translate(
+        'ref_msg')+num),
     actions: [
       okButton,
     ],

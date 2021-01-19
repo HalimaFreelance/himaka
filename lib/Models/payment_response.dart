@@ -36,6 +36,27 @@ class PaymentReq {
 
     return data;
   }
+  Map<String, dynamic> upgradePaymentToMap(List<Item> items) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['lang'] = lang;
+    data['amount'] = amount;
+    data['token'] = token;
+    List<int> products = new List<int>();
+    List<int> quantity = new List<int>();
+    List<String> price = new List<String>();
+
+    for (int i = 0; i < items.length; i++) {
+      products.add(items[i].id);
+      quantity.add(items[i].count);
+      price.add(items[i].newPrice.toString());
+    }
+
+    data['products'] = products.toString();
+    data['price'] = price.toString();
+    data['quantity'] = quantity.toString();
+
+    return data;
+  }
 
   Map<String, dynamic> checkOutPaymentToMap(List<Item> items) {
     final Map<String, dynamic> data = new Map<String, dynamic>();

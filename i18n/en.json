@@ -292,7 +292,9 @@
   "cash": "Cash",
   "credit_card": "Credit Card",
   "complete_payment": "Complete Payment Process",
-  "not_price_determined": "there is not any price determined by service provider"
+  "not_price_determined": "there is not any price determined by service provider",
+  "ref_num": "Reference Number",
+  "ref_msg": "Your reference number that you can pay through is "
 
 
 

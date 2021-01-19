@@ -128,6 +128,15 @@ class CheckOutViewModel extends BaseModel {
     setState(ViewState.Idle);
     return response;
   }
+  Future<PaymentResponse> upgradePayment(
+      String lang, amount, int orderId,int paymentId, List<Item> items) async {
+    setState(ViewState.Busy);
+    PaymentReq req = new PaymentReq(lang, amount,token:Globals.userData.token );
+    PaymentResponse response =
+    await _api.paymentReferenceNum(req.upgradePaymentToMap(items), paymentId);
+    setState(ViewState.Idle);
+    return response;
+  }
 
   PreStoreResponse get preStoreResponse => _preStoreResponse;
 

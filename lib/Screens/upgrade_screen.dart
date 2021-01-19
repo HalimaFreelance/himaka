@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:himaka/Models/pre_upgrade_response.dart';
+import 'package:himaka/Screens/payment/upgrade_payment_methods.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/upgrade_view_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/services/locator.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
-import 'package:himaka/utils/show_toast.dart';
 
 class UpgradeScreen extends StatefulWidget {
   @override
@@ -19,20 +19,7 @@ class UpgradeScreen extends StatefulWidget {
 class _UpgradeScreenState extends State<UpgradeScreen> {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  static const platform = const MethodChannel("intergration");
 
-  void _callFawryAPI(String subCost) {
-    _openPayment(subCost);
-  }
-
-  void _openPayment(String subCost) async {
-    String result = await platform.invokeMethod("payment", {'cost': subCost});
-    print("status ya developer:" + result);
-    if(result!=null){
-      Navigator.pop(
-          context);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -366,11 +353,18 @@ class _UpgradeScreenState extends State<UpgradeScreen> {
                                                                         index]
                                                                     .status ==
                                                                 3) {
-                                                              _callFawryAPI(model
-                                                                  .preUpgradeResponse
-                                                                  .data
-                                                                  .cards[index]
-                                                                  .cost);
+                                                              Navigator.push(
+                                                                  context,
+                                                                  new MaterialPageRoute(
+                                                                      builder: (context) => new UpgradePaymentMethodsScreen(model
+                                                                          .preUpgradeResponse
+                                                                          .data
+                                                                          .cards[
+                                                                      index].status, model
+                                                                          .preUpgradeResponse
+                                                                          .data
+                                                                          .cards[
+                                                                      index].cost)));
 
                                                               // PreUpgradeResponse
                                                               //     response =
