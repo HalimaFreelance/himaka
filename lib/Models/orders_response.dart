@@ -90,7 +90,7 @@ class Order {
 
   int id;
   List<Offer> products;
-  String customerId;
+  var customerId;
   String customerEmail;
   dynamic customerPhone;
   String customerFirstName;

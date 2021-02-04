@@ -59,7 +59,7 @@ class PrePersonalWalletCashOutReq {
 }
 
 class PrePersonalWalletCashOutData {
-  String balance;
+  var balance;
   LoginUserResponse user;
   List<WithdrawMethod> withdraws_methods;
   WithdrawMethod user_method;
@@ -93,8 +93,8 @@ class Transaction {
   int id;
   String value;
   String name;
-  String amount;
-  String confirm;
+  var amount;
+  var confirm;
   String transactionDate;
 
   Transaction.fromJson(Map<String, dynamic> json) {

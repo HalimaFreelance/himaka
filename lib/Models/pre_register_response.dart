@@ -38,7 +38,8 @@ class PreRegisterData {
 
 class WithdrawMethod {
   int id;
-  String name, field_name, is_active;
+  var is_active;
+  String name, field_name;
 
   WithdrawMethod({this.id, this.name, this.field_name, this.is_active});
 

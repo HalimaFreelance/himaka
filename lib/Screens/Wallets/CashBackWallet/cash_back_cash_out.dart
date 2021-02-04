@@ -73,7 +73,7 @@ class _CashBackCashOutScreenState extends State<CashBackCashOutScreen> {
                                 children: [
                                   Text(AppLocalizations.of(context)
                                       .translate('wallet_balance')),
-                                  Text(model.walletResponse.data.balance,
+                                  Text(model.walletResponse.data.balance.toString(),
                                       style: TextStyle(
                                           color: Colors.lightBlueAccent))
                                 ],
@@ -143,7 +143,8 @@ class _CashBackCashOutScreenState extends State<CashBackCashOutScreen> {
                                         ),
                                         onPressed: () async {
                                           if (model.walletResponse.data
-                                                  .balance !=
+                                                  .balance.toString()
+                                              !=
                                               "0") {
                                             if (model.transitionValidation(
                                                 _amountController.text

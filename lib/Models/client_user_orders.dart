@@ -104,7 +104,7 @@ class Order {
   String currency;
   String currencyRate;
   String locale;
-  String status;
+  var status;
   dynamic note;
   dynamic deletedAt;
   DateTime createdAt;

@@ -99,7 +99,7 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                       .translate('wallet_balance')),
                                   Text(
                                       model.personalWalletCashOutResponse.data
-                                              .balance +
+                                              .balance.toString() +
                                           ' ' +
                                           model.personalWalletCashOutResponse
                                               .data.user.currency,
@@ -369,7 +369,7 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                                   .personalWalletCashOutResponse
                                                   .data
                                                   .transactions[index]
-                                                  .confirm ==
+                                                  .confirm.toString() ==
                                               "0"
                                           ? Padding(
                                               padding: const EdgeInsets.only(
@@ -407,7 +407,7 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                                     .personalWalletCashOutResponse
                                                     .data
                                                     .transactions[index]
-                                                    .amount +
+                                                    .amount.toString() +
                                                 ' ' +
                                                 model
                                                     .personalWalletCashOutResponse

@@ -76,7 +76,7 @@ class _EarningCashOutScreenState extends State<EarningCashOutScreen> {
                                   children: [
                                     Text(AppLocalizations.of(context)
                                         .translate('wallet_balance')),
-                                    Text(model.walletResponse.data.balance,
+                                    Text(model.walletResponse.data.balance.toString(),
                                         style: TextStyle(
                                             color: Colors.lightBlueAccent))
                                   ],
@@ -147,7 +147,7 @@ class _EarningCashOutScreenState extends State<EarningCashOutScreen> {
                                           ),
                                           onPressed: () async {
                                             if (model.walletResponse.data
-                                                    .balance !=
+                                                    .balance.toString() !=
                                                 "0") {
                                               if (model.transitionValidation(
                                                   _amountController.text

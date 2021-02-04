@@ -72,7 +72,7 @@ class SearchViewModel extends BaseModel {
   }
 
   Future filter(String lang, String word, var priceFrom, var priceTo, var catId,
-      List<int> rating, int isUsed) async {
+      List<int> rating, var isUsed) async {
     setState(ViewState.Busy);
     FilterReq req = new FilterReq(
         lang: lang,

@@ -1,6 +1,6 @@
 class WalletHistory{
   int id;
-  int walletId;
+  var walletId;
   String walletType;
   String currentTotal;
   String previousTotal;

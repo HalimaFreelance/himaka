@@ -151,6 +151,7 @@ class Api {
         await ApiHeaders().genericPostFormDataRequest(path: homeUrl, map: body);
 
     if (response != null) {
+      print("res"+response.toString());
       return HomeResponse.fromJson(response.data);
     } else {
       return null;
@@ -325,6 +326,7 @@ class Api {
     var response =
         await ApiHeaders().postFormDataRequest(path: preUpgradeURL, map: body);
     if (response != null) {
+
       return PreUpgradeResponse.fromJson(response.data);
     } else {
       return null;

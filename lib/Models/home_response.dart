@@ -107,10 +107,10 @@ class Offer {
       this.image});
 
   String image;
-  String isUsed;
+  var isUsed;
   int id;
-  String userId;
-  String brandId;
+  var userId;
+  var brandId;
   dynamic taxClassId;
   String slug;
   HomePrice price;
@@ -123,7 +123,7 @@ class Offer {
   bool manageStock;
   dynamic qty;
   bool inStock;
-  String viewed;
+  var viewed;
   bool isActive;
   dynamic newFrom;
   dynamic newTo;

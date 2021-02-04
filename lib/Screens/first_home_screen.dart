@@ -546,7 +546,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                                                                       child: Padding(
                                                                         padding: const EdgeInsets.all(4.0),
                                                                         child: Text(
-                                                                          model.productsList[index].isUsed=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
+                                                                          model.productsList[index].isUsed.toString()=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
                                                                           style: TextStyle(color: Colors.white, fontSize: 10, fontFamily:"roboto",fontWeight: FontWeight.bold),
                                                                         ),
                                                                       ),

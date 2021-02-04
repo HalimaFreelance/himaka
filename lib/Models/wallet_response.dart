@@ -22,8 +22,8 @@ class WalletResponse {
 }
 
 class WalletResponseData {
-  String balance;
-  String points;
+  var balance;
+  var points;
   bool isPoints;
   List< WalletHistory> walletHistory;
   List<Child> members;

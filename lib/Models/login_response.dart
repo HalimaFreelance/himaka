@@ -29,7 +29,7 @@ class LoginResponse {
 
 class LoginDataResponse {
   LoginUserResponse user;
-  String subscriptionCost;
+  var subscriptionCost;
 
   LoginDataResponse({this.user, this.subscriptionCost});
 
@@ -43,15 +43,13 @@ class LoginDataResponse {
 
 class LoginUserResponse {
   int id;
-  var  personal_acount,commission_acount,cachback_caccount;
+  var  personal_acount,commission_acount,cachback_caccount,cadeau_acount,isPaid;
 
       String first_name,
       last_name,
       password,
       email,
-      isPaid,
       profit_acount,
-      cadeau_acount,
       token,
       address,
       cardImage,

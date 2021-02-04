@@ -78,7 +78,7 @@ class _RewardsWalletScreenState extends State<RewardsWalletScreen> {
                                       height: 16,
                                     ),
                                     model.walletResponse != null
-                                        ? model.walletResponse.data.balance !=
+                                        ? model.walletResponse.data.balance.toString() !=
                                                 "0"
                                             ? Container(
                                                 color: Colors.white,
@@ -171,7 +171,7 @@ class _RewardsWalletScreenState extends State<RewardsWalletScreen> {
                                                                       model
                                                                           .walletResponse
                                                                           .data
-                                                                          .balance,
+                                                                          .balance.toString(),
                                                                       style: TextStyle(
                                                                           color: Colors
                                                                               .blue,
@@ -299,7 +299,7 @@ class _RewardsWalletScreenState extends State<RewardsWalletScreen> {
                                                                 ),
                                                                 onPressed:
                                                                     () async {
-                                                                  if(model.walletResponse.data.balance!="0"){
+                                                                  if(model.walletResponse.data.balance.toString()!="0"){
                                                                   if (model.transitionValidation(
                                                                       _amountController
                                                                           .text

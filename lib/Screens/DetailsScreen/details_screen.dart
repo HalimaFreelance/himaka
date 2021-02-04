@@ -197,7 +197,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                   imageCarousel(
                                       images,
                                       model.productOrServiceDetailsResponse.data
-                                          .item.userId,
+                                          .item.userId.toString(),
                                       model.productOrServiceDetailsResponse.data
                                           .item.userName),
 
@@ -490,7 +490,7 @@ class _DetailsScreenState extends State<DetailsScreen>
                                                        child: Text(
                                                          model.productOrServiceDetailsResponse
                                                              .data
-                                                             .item.isUsed=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
+                                                             .item.isUsed.toString()=="0"?AppLocalizations.of(context).translate('new'):AppLocalizations.of(context).translate('used'),
                                                          style: TextStyle(color: Colors.white, fontSize: 10, fontFamily:"roboto",fontWeight: FontWeight.bold),
                                                        ),
                                                      )),

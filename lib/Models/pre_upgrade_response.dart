@@ -5,12 +5,12 @@ class PreUpgradeResponse {
   PreUpgradeResponseData data;
 
   PreUpgradeResponse.fromJson(Map<String, dynamic> json) {
-    try{
+    try {
       data = json['data'] != null
           ? new PreUpgradeResponseData.fromJson(json['data'])
           : null;
-    }catch(e){
-
+    } catch (e) {
+      data = null;
     }
     status = json['status'];
     if (json['errors'] != null) {
@@ -27,22 +27,25 @@ class PreUpgradeResponseData {
   List<Card> cards;
 
   PreUpgradeResponseData.fromJson(Map<String, dynamic> json) {
+
     if (json['cards'] != null) {
       cards = new List<Card>();
       json['cards'].forEach((v) {
         cards.add(new Card.fromJson(v));
       });
     }
+
   }
 }
 
 class Card {
-  String duration;
-  int status;
-  String cost;
-  String currency;
+  var duration;
+  var status;
+  var cost;
+  var currency;
 
   Card.fromJson(Map<String, dynamic> json) {
+
     duration = json['duration'];
     cost = json['cost'];
     status = json['status'];

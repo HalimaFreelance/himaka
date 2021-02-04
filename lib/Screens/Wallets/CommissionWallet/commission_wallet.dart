@@ -154,7 +154,7 @@ class _CommissionWalletScreenState extends State<CommissionWalletScreen> {
                                                               Text(model
                                                                       .walletResponse
                                                                       .data
-                                                                      .points +
+                                                                      .points.toString() +
                                                                   ' ' +
                                                                   AppLocalizations.of(
                                                                           context)
@@ -168,7 +168,7 @@ class _CommissionWalletScreenState extends State<CommissionWalletScreen> {
                                                                       new MaterialPageRoute(
                                                                           builder: (context) => new CompleteMoneyTransitionScreen(
                                                                               model.walletResponse.data.isPoints,
-                                                                              model.walletResponse.data.points,model.walletResponse.data.walletHistory)));
+                                                                              model.walletResponse.data.points.toString(),model.walletResponse.data.walletHistory)));
                                                                 },
                                                                 child: Icon(
                                                                   Icons
@@ -315,7 +315,7 @@ class _CommissionWalletScreenState extends State<CommissionWalletScreen> {
                                                     ),
                                                     Text(
                                                       model.walletResponse.data
-                                                          .balance,
+                                                          .balance.toString(),
                                                       style: TextStyle(
                                                           color: Color(
                                                               0xFF58c6ef)),
@@ -440,7 +440,7 @@ class _CommissionWalletScreenState extends State<CommissionWalletScreen> {
                                                         child: RaisedButton(
                                                           onPressed: () async {
                                                             if(model.walletResponse.data
-                                                                .balance!="0"){
+                                                                .balance.toString()!="0"){
                                                             if (model.transitionValidation(
                                                                 _amountController
                                                                     .text

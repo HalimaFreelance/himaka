@@ -209,7 +209,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                                     loginResponse.data.user !=
                                                         null
                                                     ) {
-                                                  if(loginResponse.data.user.isPaid =="1") {
+                                                  if(loginResponse.data.user.isPaid.toString() =="1") {
                                                     saveLoginData(json.encode(
                                                         loginResponse.data
                                                             .user));

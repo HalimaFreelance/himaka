@@ -126,7 +126,7 @@ class ProductOrService {
   var offerPercent; // digit without %
   Image image;
   Price price;
-  String isUsed;
+  var isUsed;
   bool isFav;
 
   ProductOrService.fromJson(Map<String, dynamic> json) {

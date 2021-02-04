@@ -105,8 +105,8 @@ class Item {
       this.count});
 
   int id;
-  dynamic userId;
-  String brandId, userName;
+  dynamic userId,brandId;
+  String  userName;
   dynamic taxClassId;
   String slug;
   Price price;
@@ -119,7 +119,7 @@ class Item {
   bool manageStock;
   dynamic qty;
   bool inStock;
-  String viewed;
+  var viewed;
   bool isActive;
   dynamic newFrom;
   dynamic newTo;
@@ -127,7 +127,7 @@ class Item {
   DateTime createdAt;
   DateTime updatedAt;
   String used;
-  String isUsed;
+  var isUsed;
   bool isWishlist;
   var oldPrice;
   var newPrice;
@@ -423,9 +423,9 @@ class Review {
   });
 
   int id;
-  String reviewerId;
-  String productId;
-  String rating;
+  var reviewerId;
+  var productId;
+  var rating;
   String reviewerName;
   String comment;
   bool isApproved;
@@ -474,7 +474,7 @@ class Translation {
   });
 
   int id;
-  String productId;
+  var productId;
   String locale;
   String name;
   String description;
