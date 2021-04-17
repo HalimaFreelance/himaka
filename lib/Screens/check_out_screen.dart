@@ -571,42 +571,44 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                         SizedBox(
                                           width: 8,
                                         ),
-                                        RichText(
-                                          textAlign: TextAlign.center,
-                                          text: new TextSpan(
-                                            text: AppLocalizations.of(context)
-                                                .translate('i_agree'),
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                            children: <TextSpan>[
-                                              new TextSpan(
-                                                  text: AppLocalizations.of(
-                                                          context)
-                                                      .translate(
-                                                          'terms_and_conditions'),
+                                        Flexible(
+                                          child: RichText(
+                                            textAlign: TextAlign.center,
+                                            text: new TextSpan(
+                                              text: AppLocalizations.of(context)
+                                                  .translate('i_agree'),
+                                              style:
+                                                  TextStyle(color: Colors.black),
+                                              children: <TextSpan>[
+                                                new TextSpan(
+                                                    text: AppLocalizations.of(
+                                                            context)
+                                                        .translate(
+                                                            'terms_and_conditions'),
+                                                    style: new TextStyle(
+                                                        decoration: TextDecoration
+                                                            .underline,
+                                                        color: Colors.blue)),
+                                                new TextSpan(
+                                                    text: AppLocalizations.of(
+                                                            context)
+                                                        .translate('and')),
+                                                new TextSpan(
+                                                  text:
+                                                      AppLocalizations.of(context)
+                                                          .translate(
+                                                              'privacy_policy'),
                                                   style: new TextStyle(
                                                       decoration: TextDecoration
                                                           .underline,
-                                                      color: Colors.blue)),
-                                              new TextSpan(
-                                                  text: AppLocalizations.of(
-                                                          context)
-                                                      .translate('and')),
-                                              new TextSpan(
-                                                text:
-                                                    AppLocalizations.of(context)
-                                                        .translate(
-                                                            'privacy_policy'),
-                                                style: new TextStyle(
-                                                    decoration: TextDecoration
-                                                        .underline,
-                                                    color: Colors.blue),
-                                                recognizer:
-                                                    new TapGestureRecognizer()
-                                                      ..onTap = () => print(
-                                                          'Tap Here onTap'),
-                                              ),
-                                            ],
+                                                      color: Colors.blue),
+                                                  recognizer:
+                                                      new TapGestureRecognizer()
+                                                        ..onTap = () => print(
+                                                            'Tap Here onTap'),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         )
                                       ],

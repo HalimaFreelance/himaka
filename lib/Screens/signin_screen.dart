@@ -8,6 +8,8 @@ import 'package:himaka/Models/login_response.dart';
 import 'package:himaka/Screens/forget_password_screen.dart';
 import 'package:himaka/Screens/home.dart';
 import 'package:himaka/Screens/payment/sign_up_payment_methods.dart';
+import 'package:himaka/Screens/privacy_policy.dart';
+import 'package:himaka/Screens/terms_and_conditions.dart';
 import 'package:himaka/ViewModels/auth_view_model.dart';
 import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/services/base_view.dart';
@@ -48,6 +50,14 @@ class _SignInScreenState extends State<SignInScreen> {
             children: <TextSpan>[
               new TextSpan(
                   text: 'terms and conditions',
+                  recognizer: new TapGestureRecognizer()
+                    ..onTap = () => {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) =>
+                              new TermsAndConditionsScreen()))
+                    },
                   style: new TextStyle(
                     decoration: TextDecoration.underline,
                   )),
@@ -58,7 +68,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   decoration: TextDecoration.underline,
                 ),
                 recognizer: new TapGestureRecognizer()
-                  ..onTap = () => print('Tap Here onTap'),
+                  ..onTap = () => {
+                    Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (context) =>
+                            new PrivacyPolicyScreen()))
+                  },
               ),
             ],
           ),

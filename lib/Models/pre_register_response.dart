@@ -78,13 +78,9 @@ class CurrencyMap {
 
 class CurrencyData {
   int id;
+  var limit,subscription_cost,commission,max_people,min_commission_to_appear;
   String currency,
-      duration,
-      limit,
-      subscription_cost,
-      commission,
-      max_people,
-      min_commission_to_appear;
+      duration;
 
   CurrencyData(
       {this.id,

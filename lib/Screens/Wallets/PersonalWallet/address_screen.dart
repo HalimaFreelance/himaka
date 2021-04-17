@@ -4,6 +4,7 @@ import 'package:himaka/ViewModels/base_model.dart';
 import 'package:himaka/ViewModels/profile_view_model.dart';
 import 'package:himaka/services/base_view.dart';
 import 'package:himaka/utils/app_bar.dart';
+import 'package:himaka/utils/app_localizations.dart';
 
 class AddressScreen extends StatefulWidget {
   @override
@@ -17,7 +18,7 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: setAppBar('Personal Wallet', context),
+        appBar: setAppBar(AppLocalizations.of(context).translate('personal_wallet'), context),
         body: BaseView<ProfileViewModel>(
             onModelReady: (model) {
               refreshScreen(model);
@@ -51,7 +52,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          Text('Address',
+                                          Text(AppLocalizations.of(context).translate('address'),
                                               style: TextStyle(
                                                   color: Colors.white)),
                                         ],
@@ -70,7 +71,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Additional address details',
+                                              AppLocalizations.of(context).translate('add_address_details'),
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             ),
@@ -113,7 +114,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                           },
                                           child: Row(
                                             children: [
-                                              Text('edit',
+                                              Text(AppLocalizations.of(context).translate('edit'),
                                                   style: TextStyle(
                                                       color: Colors
                                                           .lightBlueAccent)),
@@ -143,7 +144,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                                 .width,
                                             child: RaisedButton(
                                               color: Colors.lightBlueAccent,
-                                              child: Text('Done',
+                                              child: Text(AppLocalizations.of(context).translate('done'),
                                                   style: TextStyle(
                                                       color: Colors.white)),
                                               onPressed: _toggle
@@ -157,7 +158,7 @@ class _AddressScreenState extends State<AddressScreen> {
                               ),
                             ])
                           : Center(
-                              child: Text('empty'),
+                              child: Text(AppLocalizations.of(context).translate('empty')),
                             );
                 })));
   }

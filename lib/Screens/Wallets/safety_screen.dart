@@ -82,8 +82,7 @@ class _SafetyScreenState extends State<SafetyScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'ADDRESS DETAILS TO CASH OUT',
+                      child: Text(AppLocalizations.of(context).translate('add_safety_details'),
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
@@ -104,7 +103,8 @@ class _SafetyScreenState extends State<SafetyScreen> {
                                       : AppLocalizations.of(context)
                                           .translate('pin_safety_error'),
                                   contentPadding: EdgeInsets.all(0),
-                                  labelText: 'Pin',
+                                  labelText: AppLocalizations.of(context)
+                                      .translate('pin'),
                                   labelStyle: TextStyle(color: Colors.grey),
                                   hintStyle: TextStyle(fontSize: 20.0),
                                   enabledBorder: UnderlineInputBorder(
@@ -127,7 +127,7 @@ class _SafetyScreenState extends State<SafetyScreen> {
                                 ),
                                 isExpanded: true,
                                 hint: Text(
-                                  "Choose a question for your security",
+                                  AppLocalizations.of(context).translate('choose_question'),
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 value: val,
@@ -185,7 +185,7 @@ class _SafetyScreenState extends State<SafetyScreen> {
                                       : AppLocalizations.of(context)
                                           .translate('answer_safety_error'),
                                   labelText:
-                                      'Answer the question have been chosen',
+                                  AppLocalizations.of(context).translate('chosen_answer'),
                                   labelStyle: TextStyle(color: Colors.grey),
                                   prefixIcon: Padding(
                                     padding: const EdgeInsets.all(15.0),
@@ -219,7 +219,7 @@ class _SafetyScreenState extends State<SafetyScreen> {
                                   )
                                 : RaisedButton(
                                     child: Text(
-                                      'Complete your order',
+                                      AppLocalizations.of(context).translate('complete_your_order'),
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     onPressed: () async{

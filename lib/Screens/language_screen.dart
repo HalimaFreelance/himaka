@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:himaka/Screens/SignUp/signup_screen.dart';
+import 'package:himaka/Screens/privacy_policy.dart';
 import 'package:himaka/Screens/signin_screen.dart';
 import 'package:himaka/Screens/start_screen.dart';
+import 'package:himaka/Screens/terms_and_conditions.dart';
 import 'package:himaka/utils/AppLanguage.dart';
 import 'package:himaka/utils/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -161,6 +163,14 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                 new TextSpan(
                                     text: AppLocalizations.of(context)
                                         .translate('terms_and_conditions'),
+                                    recognizer: new TapGestureRecognizer()
+                                      ..onTap = () => {
+                                        Navigator.push(
+                                            context,
+                                            new MaterialPageRoute(
+                                                builder: (context) =>
+                                                new TermsAndConditionsScreen()))
+                                      },
                                     style: new TextStyle(
                                       decoration: TextDecoration.underline,
                                     )),
@@ -172,7 +182,13 @@ class _LanguageScreenState extends State<LanguageScreen> {
                                     decoration: TextDecoration.underline,
                                   ),
                                   recognizer: new TapGestureRecognizer()
-                                    ..onTap = () => print('Tap Here onTap'),
+                                    ..onTap = () => {
+                                      Navigator.push(
+                                          context,
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                              new PrivacyPolicyScreen()))
+                                    },
                                 ),
                               ],
                             ),

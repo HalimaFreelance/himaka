@@ -36,17 +36,22 @@ class _CashOutScreenState extends State<CashOutScreen> {
               if (!initializeMethods &&
                   model.personalWalletCashOutResponse != null) {
                 initializeMethods = true;
-                val = model.personalWalletCashOutResponse.data
-                    .withdraws_methods[model.getUserWithdrawMethodIndex(model
-                            .personalWalletCashOutResponse
-                            .data
-                            .user
-                            .withdrawMethod
-                            .id !=
-                        -1
-                    ? model.personalWalletCashOutResponse.data.user
-                        .withdrawMethod.id
-                    : 0)];
+                val = model.personalWalletCashOutResponse.data.user
+                            .withdrawMethod !=
+                        null
+                    ? model.personalWalletCashOutResponse.data.withdraws_methods[
+                        model.getUserWithdrawMethodIndex((model
+                                    .personalWalletCashOutResponse
+                                    .data
+                                    .user
+                                    .withdrawMethod
+                                    .id !=
+                                -1)
+                            ? model.personalWalletCashOutResponse.data.user
+                                .withdrawMethod.id
+                            : 0)]
+                    : model.personalWalletCashOutResponse.data
+                        .withdraws_methods[0];
                 _methodController = new TextEditingController(
                     text: model.personalWalletCashOutResponse.data.user
                         .withdraw_field_value);
@@ -99,7 +104,8 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                       .translate('wallet_balance')),
                                   Text(
                                       model.personalWalletCashOutResponse.data
-                                              .balance.toString() +
+                                              .balance
+                                              .toString() +
                                           ' ' +
                                           model.personalWalletCashOutResponse
                                               .data.user.currency,
@@ -167,8 +173,8 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                 ),
                                 isExpanded: true,
                                 hint: Text(
-                                  "Select the method",
-                                  style: TextStyle(color: Colors.white),
+                                  AppLocalizations.of(context).translate('select_the_method'),
+                                  style: TextStyle(color: Colors.black54),
                                 ),
                                 value: val,
                                 onChanged: (WithdrawMethod value) {
@@ -216,80 +222,90 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                 ).toList(),
                               ),
                             ),
-                            Column(
-                              children: [
-                                new Container(
-                                  child: new TextField(
-                                    cursorColor: Colors.blue,
-                                    controller: _methodController,
-                                    decoration: new InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 16),
-                                      labelStyle:
-                                          TextStyle(color: Colors.black87),
-                                      labelText: val.field_name,
-                                      hintStyle: TextStyle(
-                                          fontSize: 20.0, color: Colors.blue),
-                                      errorText: model.methodFieldValidate
-                                          ? null
-                                          : AppLocalizations.of(context)
-                                              .translate(
-                                                  'eight_validate_error'),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black87),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black87),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                new Container(
-                                  child: new TextField(
-                                    cursorColor: Colors.blue,
-                                    controller: _descController,
-                                    decoration: new InputDecoration(
-                                      labelStyle:
-                                          TextStyle(color: Colors.black87),
-                                      labelText: 'Description the method',
-                                      hintStyle: TextStyle(
-                                          fontSize: 20.0, color: Colors.blue),
-                                      prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: SvgPicture.asset(
-                                          'images/icon_desc.svg',
-                                          height: 5.0,
-                                          width: 5.0,
-                                          color: Colors.blue,
-                                          allowDrawingOutsideViewBox: true,
+                            val != null
+                                ? Column(
+                                    children: [
+                                      new Container(
+                                        child: new TextField(
+                                          cursorColor: Colors.blue,
+                                          controller: _methodController,
+                                          decoration: new InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 16),
+                                            labelStyle: TextStyle(
+                                                color: Colors.black87),
+                                            labelText: val != null
+                                                ? val.field_name
+                                                : AppLocalizations.of(context)
+                                                    .translate('description'),
+                                            hintStyle: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.blue),
+                                            errorText: model.methodFieldValidate
+                                                ? null
+                                                : AppLocalizations.of(context)
+                                                    .translate(
+                                                        'eight_validate_error'),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black87),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black87),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                      // errorText: model.descValidate
-                                      //     ? null
-                                      //     : AppLocalizations.of(context)
-                                      //         .translate('empty_error'),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black87),
+                                      new Container(
+                                        child: new TextField(
+                                          cursorColor: Colors.blue,
+                                          controller: _descController,
+                                          decoration: new InputDecoration(
+                                            labelStyle: TextStyle(
+                                                color: Colors.black87),
+                                            labelText: AppLocalizations.of(context).translate('description'),
+                                            hintStyle: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.blue),
+                                            prefixIcon: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(15.0),
+                                              child: SvgPicture.asset(
+                                                'images/icon_desc.svg',
+                                                height: 5.0,
+                                                width: 5.0,
+                                                color: Colors.blue,
+                                                allowDrawingOutsideViewBox:
+                                                    true,
+                                              ),
+                                            ),
+                                            // errorText: model.descValidate
+                                            //     ? null
+                                            //     : AppLocalizations.of(context)
+                                            //         .translate('empty_error'),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black87),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black87),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black87),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                    ],
+                                  )
+                                : Container(),
                             SizedBox(
                               height: 4,
                             ),
                             Center(
                               child: RaisedButton(
                                 child: Text(
-                                  'Complete your transtion',
+                                  AppLocalizations.of(context).translate('complete_your_transition'),
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 onPressed: () async {
@@ -369,7 +385,8 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                                   .personalWalletCashOutResponse
                                                   .data
                                                   .transactions[index]
-                                                  .confirm.toString() ==
+                                                  .confirm
+                                                  .toString() ==
                                               "0"
                                           ? Padding(
                                               padding: const EdgeInsets.only(
@@ -407,7 +424,8 @@ class _CashOutScreenState extends State<CashOutScreen> {
                                                     .personalWalletCashOutResponse
                                                     .data
                                                     .transactions[index]
-                                                    .amount.toString() +
+                                                    .amount
+                                                    .toString() +
                                                 ' ' +
                                                 model
                                                     .personalWalletCashOutResponse

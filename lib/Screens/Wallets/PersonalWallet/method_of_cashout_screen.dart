@@ -43,18 +43,25 @@ class _MethodOfCashOutScreenState extends State<MethodOfCashOutScreen> {
               if (!initializeMethods &&
                   model.personalWalletCashOutResponse != null) {
                 initializeMethods = true;
-                val = model.personalWalletCashOutResponse.data
-                    .withdraws_methods[model.getUserWithdrawMethodIndex(model
-                            .personalWalletCashOutResponse
-                            .data
-                            .user_method
-                            .id !=
-                        -1
-                    ? model.personalWalletCashOutResponse.data.user_method.id
-                    : 0)];
+                val = model.personalWalletCashOutResponse.data.user_method !=
+                        null
+                    ? model.personalWalletCashOutResponse.data
+                            .withdraws_methods[
+                        model.getUserWithdrawMethodIndex(model
+                                    .personalWalletCashOutResponse
+                                    .data
+                                    .user_method
+                                    .id !=
+                                -1
+                            ? model.personalWalletCashOutResponse.data
+                                .user_method.id
+                            : 0)]
+                    : model.personalWalletCashOutResponse.data
+                    .withdraws_methods[0];
                 _methodController = new TextEditingController(
-                    text: model.personalWalletCashOutResponse.data.user_method
-                        .field_name);
+                    text:  model.personalWalletCashOutResponse.data.user_method
+                        !=null?model.personalWalletCashOutResponse.data.user_method
+                        .field_name:"");
                 _descController = new TextEditingController();
               }
               return Scaffold(
@@ -101,9 +108,10 @@ class _MethodOfCashOutScreenState extends State<MethodOfCashOutScreen> {
                                 children: [
                                   Text(AppLocalizations.of(context)
                                       .translate('method_cash_out')),
-                                  Text(
+                                  Text(model.personalWalletCashOutResponse.data
+                                      .user_method!=null?
                                       model.personalWalletCashOutResponse.data
-                                          .user_method.name,
+                                          .user_method.name:"",
                                       style: TextStyle(
                                           color: Colors.lightBlueAccent))
                                 ],
@@ -131,7 +139,9 @@ class _MethodOfCashOutScreenState extends State<MethodOfCashOutScreen> {
                                             style:
                                                 TextStyle(color: Colors.white),
                                           ),
-                                          value: val,
+                                          value: val != null
+                                              ? val
+                                              : null,
                                           onChanged: (WithdrawMethod value) {
                                             setState(() {
                                               // model.methodIdValidate = true;

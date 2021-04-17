@@ -293,13 +293,13 @@ class AuthViewModel extends BaseModel {
 
   String getSubscriptionText(CurrencyData currencyData, String val) {
     if (currencyData.duration == "1")
-      return currencyData.subscription_cost + ' ' + val + ' every 12 months';
+      return currencyData.subscription_cost.toString() + ' ' + val + ' every 12 months';
     else if (currencyData.duration == "2")
-      return currencyData.subscription_cost + ' ' + val + ' every 1 month';
+      return currencyData.subscription_cost.toString() + ' ' + val + ' every 1 month';
     else if (currencyData.duration == "3")
-      return currencyData.subscription_cost + ' ' + val + ' every 1 week';
+      return currencyData.subscription_cost.toString() + ' ' + val + ' every 1 week';
     else
-      return currencyData.subscription_cost + ' ' + val + ' every 1 Day';
+      return currencyData.subscription_cost.toString() + ' ' + val + ' every 1 Day';
   }
 
   String getRegisterErrors(List<String> errors) {
